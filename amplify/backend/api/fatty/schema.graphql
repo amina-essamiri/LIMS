@@ -1,0 +1,21 @@
+type Salle @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  eleves: [Eleve] @manyToMany(relationName: "EleveSalle")
+  etablissementID: ID! @index(name: "byEtablissement")
+}
+
+type Eleve @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  etablissementID: ID! @index(name: "byEtablissement")
+  Salles: [Salle] @manyToMany(relationName: "EleveSalle")
+}
+
+type Etablissement @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  Eleves: [Eleve] @hasMany(indexName: "byEtablissement", fields: ["id"])
+  Salles: [Salle] @hasMany(indexName: "byEtablissement", fields: ["id"])
+}
+ 
