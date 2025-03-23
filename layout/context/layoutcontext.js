@@ -7,7 +7,7 @@ export const LayoutProvider = (props) => {
     const [breadcrumbs, setBreadcrumbs] = useState([]);
     const [layoutConfig, setLayoutConfig] = useState({
         ripple: false,
-        inputStyle: 'outlined',
+        inputStyle: 'filled',
         menuMode: 'static',
         menuTheme: 'colorScheme',
         colorScheme: 'light',
@@ -25,7 +25,7 @@ export const LayoutProvider = (props) => {
         menuHoverActive: false,
         resetMenu: false,
         sidebarActive: false,
-        anchored: false
+        anchored: false,
     });
 
     const onMenuToggle = () => {
@@ -88,15 +88,15 @@ export const LayoutProvider = (props) => {
         <LayoutContext.Provider value={value}>
             <>
                 <Head>
-                    <title>PrimeReact - APOLLO</title>
+                    <title>QEE Laboratory</title>
                     <meta charSet="UTF-8" />
-                    <meta name="description" content="The ultimate collection of design-agnostic, flexible and accessible React UI Components." />
+                    <meta name="description" content="Laboratory Information Management System" />
                     <meta name="robots" content="index, follow" />
                     <meta name="viewport" content="initial-scale=1, width=device-width" />
                     <meta property="og:type" content="website"></meta>
-                    <meta property="og:title" content="Apollo by PrimeReact for NextJS"></meta>
-                    <meta property="og:url" content="https://www.primefaces.org/apollo-react"></meta>
-                    <meta property="og:description" content="The ultimate collection of design-agnostic, flexible and accessible React UI Components." />
+                    <meta property="og:title" content="Powered by Tooit"></meta>
+                    <meta property="og:url" content="https://laboqee.ma/"></meta>
+                    <meta property="og:description" content="Laboratory Information Management System" />
                     <meta property="og:image" content="https://www.primefaces.org/static/social/apollo-react.png"></meta>
                     <meta property="og:ttl" content="604800"></meta>
                     <link rel="icon" href={`/favicon.ico`} type="image/x-icon"></link>
