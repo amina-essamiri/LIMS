@@ -31,8 +31,8 @@ function ForgotPassword() {
             <div className="px-5 min-h-screen flex justify-content-center align-items-center">
                 <div className="border-1 surface-border surface-card border-round py-7 px-4 md:px-7 z-1">
                     <div className="mb-4">
-                        <div className="text-900 text-xl font-bold mb-2">Forgot Password</div>
-                        <span className="text-600 font-medium">Enter your email to reset your password</span>
+                        <div className="text-900 text-xl font-bold mb-2">Mot de passe oublié</div>
+                        <span className="text-600 font-medium">Saisissez votre email pour réinitialiser votre password</span>
                     </div>
                     <div className="flex flex-column">
                         <span className="p-input-icon-left w-full mb-4">
@@ -40,8 +40,8 @@ function ForgotPassword() {
                             <InputText id="email" type="text" className="w-full md:w-25rem" placeholder="Email" />
                         </span>
                         <div className="flex flex-wrap gap-2 justify-content-between">
-                            <Button label="Cancel" className="flex-auto p-button-outlined" onClick={() => router.push('/')}></Button>
-                            <Button label="Submit" className="flex-auto" onClick={() => router.push('/')}></Button>
+                            <Button label="Annuler" className="flex-auto p-button-outlined" onClick={() => router.push('/auth/login')}></Button>
+                            <Button label="Envoyer" className="flex-auto" onClick={() => router.push('/')}></Button>
                         </div>
                     </div>
                 </div>

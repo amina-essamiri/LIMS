@@ -2,16 +2,19 @@ import { useRouter } from 'next/router';
 import { Button } from 'primereact/button';
 import { Checkbox } from 'primereact/checkbox';
 import { InputText } from 'primereact/inputtext';
+import { InputSwitch } from 'primereact/inputswitch';
 import React, { useContext, useState } from 'react';
 import AppConfig from '../../../layout/AppConfig';
 import { LayoutContext } from '../../../layout/context/layoutcontext';
+import {logo} from '../../../public/logo.png';
 
 function Login() {
     const [rememberMe, setRememberMe] = useState(false);
     const router = useRouter();
     const { layoutConfig } = useContext(LayoutContext);
     const dark = layoutConfig.colorScheme !== 'light';
-
+    const [switchValue, setSwitchValue] = useState(false);
+    const [checked, setChecked] = useState(false);
     return (
         <>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 800" className="fixed left-0 top-0 min-h-screen min-w-screen" preserveAspectRatio="none">
@@ -33,28 +36,31 @@ function Login() {
             <div className="px-5 min-h-screen flex justify-content-center align-items-center">
                 <div className="border-1 surface-border surface-card border-round py-7 px-4 md:px-7 z-1">
                     <div className="mb-4">
-                        <div className="text-900 text-xl font-bold mb-2">Log in</div>
-                        <span className="text-600 font-medium">Please enter your details</span>
+                        <div className="text-900 text-xl font-bold"><img src={`/logo.png`} alt='logo' width="70px" style={{ marginLeft: '140px'}} /></div>
+                        {/* <span className="text-600 font-medium">Please enter your details</span> */}
                     </div>
+                    <span className=" mb-4 text-600 font-bold block text-center">Veuillez entrer vos identifiants</span>
                     <div className="flex flex-column">
                         <span className="p-input-icon-left w-full mb-4">
                             <i className="pi pi-envelope"></i>
-                            <InputText id="email" type="text" className="w-full md:w-25rem" placeholder="Email" />
+                            <InputText id="email" type="text" className="w-full md:w-25rem" placeholder="Nom d'utilisateur" />
                         </span>
                         <span className="p-input-icon-left w-full mb-4">
                             <i className="pi pi-lock"></i>
-                            <InputText id="password" type="password" className="w-full md:w-25rem" placeholder="Password" />
+                            <InputText id="password" type="password" className="w-full md:w-25rem" placeholder="Mot de passe" />
                         </span>
-                        <div className="mb-4 flex flex-wrap gap-3">
-                            <div>
-                                <Checkbox name="checkbox" checked={rememberMe} onChange={(e) => setRememberMe(e.checked)} className="mr-2"></Checkbox>
-                                <label htmlFor="checkbox" className="text-900 font-medium mr-8">
+                        {/* <div className="mb-4 flex flex-wrap gap-3"> */}
+                        <div className="mb-4 gap-3">
+                            {/* <div> */}
+                                {/* <InputSwitch checked={checked} onChange={(e) => setChecked(e.value)} /> */}
+                                {/* <Checkbox inputId='checkbox' checked={rememberMe} onChange={(e) => setRememberMe(e.checked)} className="mr-2"></Checkbox>
+                                <label className="text-900 font-medium mr-8">
                                     Remember Me
-                                </label>
-                            </div>
-                            <a className="text-600 cursor-pointer hover:text-primary cursor-pointer ml-auto transition-colors transition-duration-300">Reset password</a>
+                                </label> */}
+                            {/* </div> */}
+                            <a className="text-600 cursor-pointer hover:text-primary cursor-pointer ml-auto transition-colors transition-duration-300" onClick={() => router.push('/auth/forgotpassword')}>Réinitialiser le mot de passe?</a>
                         </div>
-                        <Button label="Log In" className="w-full" onClick={() => router.push('/')}></Button>
+                        <Button label="Se connecter" className="w-full" onClick={() => router.push('/')}></Button>
                     </div>
                 </div>
             </div>
