@@ -130,7 +130,7 @@ export default function ECommerce() {
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
         const pieData = {
-            labels: ['Electronics', 'Fashion', 'Household'],
+            labels: ['Fès - Meknès', 'Casablanca - Setta', 'Rabat - Salé - Kénitra'],
             datasets: [
                 {
                     data: [300, 50, 100],
@@ -165,14 +165,14 @@ export default function ECommerce() {
             labels: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
             datasets: [
                 {
-                    label: 'Revenue',
+                    label: 'Revenu',
                     backgroundColor: documentStyle.getPropertyValue('--primary-500'),
                     barThickness: 12,
                     borderRadius: 12,
                     data: weeks[selectedWeek].data[0]
                 },
                 {
-                    label: 'Profit',
+                    label: 'Bénéfice',
                     backgroundColor: documentStyle.getPropertyValue('--primary-200'),
                     barThickness: 12,
                     borderRadius: 12,
@@ -239,7 +239,7 @@ export default function ECommerce() {
         <div className="grid">
             <div className="col-12 md:col-6 xl:col-3">
                 <div className="card h-full">
-                    <span className="font-semibold text-lg">Sales</span>
+                    <span className="font-semibold text-lg">Clients</span>
                     <div className="flex justify-content-between align-items-start mt-3">
                         <div className="w-6">
                             <span className="text-4xl font-bold text-900">120</span>
@@ -262,10 +262,10 @@ export default function ECommerce() {
             </div>
             <div className="col-12 md:col-6 xl:col-3">
                 <div className="card h-full">
-                    <span className="font-semibold text-lg">Revenue</span>
+                    <span className="font-semibold text-lg">Revenus</span>
                     <div className="flex justify-content-between align-items-start mt-3">
                         <div className="w-6">
-                            <span className="text-4xl font-bold text-900">$450</span>
+                            <span className="text-4xl font-bold text-900">45000 DH</span>
                             <div className="text-green-500">
                                 <span className="font-medium">+20%</span>
                                 <i className="pi pi-arrow-up text-xs ml-2"></i>
@@ -284,12 +284,12 @@ export default function ECommerce() {
             </div>
             <div className="col-12 md:col-6 xl:col-3">
                 <div className="card h-full">
-                    <span className="font-semibold text-lg">Visitors</span>
+                    <span className="font-semibold text-lg">Commandes</span>
                     <div className="flex justify-content-between align-items-start mt-3">
                         <div className="w-6">
-                            <span className="text-4xl font-bold text-900">360</span>
+                            <span className="text-4xl font-bold text-900">116</span>
                             <div className="text-pink-500">
-                                <span className="font-medium">+24%</span>
+                                <span className="font-medium">+1%</span>
                                 <i className="pi pi-arrow-down text-xs ml-2"></i>
                             </div>
                         </div>
@@ -306,7 +306,7 @@ export default function ECommerce() {
             </div>
             <div className="col-12 md:col-6 xl:col-3">
                 <div className="card h-full">
-                    <span className="font-semibold text-lg">Stock</span>
+                    <span className="font-semibold text-lg">Analyses</span>
                     <div className="flex justify-content-between align-items-start mt-3">
                         <div className="w-6">
                             <span className="text-4xl font-bold text-900">164</span>
@@ -330,7 +330,7 @@ export default function ECommerce() {
             <div className="col-12 xl:col-9">
                 <div className="card h-auto">
                     <div className="flex align-items-start justify-content-between mb-6">
-                        <span className="text-900 text-xl font-semibold">Revenue Overview</span>
+                        <span className="text-900 text-xl font-semibold">Aperçu des revenus</span>
                         <Dropdown options={weeks} value={selectedWeek} className="w-10rem" optionLabel="label" onChange={onWeekChange}></Dropdown>
                     </div>
                     <Chart height="300px" type="bar" data={chartData.barData} options={chartOptions.barOptions}></Chart>
@@ -338,12 +338,12 @@ export default function ECommerce() {
             </div>
             <div className="col-12 xl:col-3">
                 <div className="card h-auto">
-                    <div className="text-900 text-xl font-semibold mb-6">Sales by Category</div>
+                    <div className="text-900 text-xl font-semibold mb-6">Commandes par régions</div>
                     <Chart height="300px" type="pie" data={chartData.pieData} options={chartOptions.pieOptions}></Chart>
                 </div>
             </div>
 
-            <div className="col-12 lg:col-8">
+            {/* <div className="col-12 lg:col-8">
                 <div className="card">
                     <div className="flex flex-column md:flex-row md:align-items-start md:justify-content-between mb-3">
                         <div className="text-900 text-xl font-semibold mb-3 md:mb-0">Recent Sales</div>
@@ -364,8 +364,8 @@ export default function ECommerce() {
                         <Column body={searchBodyTemplate} style={{ textAlign: 'center' }}></Column>
                     </DataTable>
                 </div>
-            </div>
-            <div className="col-12 lg:col-4">
+            </div> */}
+            {/* <div className="col-12 lg:col-4">
                 <div className="card h-full">
                     <div className="text-900 text-xl font-semibold mb-3">Top Products</div>
                     <ul className="list-none p-0 m-0">
@@ -385,7 +385,7 @@ export default function ECommerce() {
                         })}
                     </ul>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }

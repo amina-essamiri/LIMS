@@ -6,11 +6,6 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/primereact.css';
 import '../styles/layout/layout.scss';
 import '../styles/demo/Demos.scss';
-
-import { Amplify } from 'aws-amplify';
-import amplifyconfig from '../src/amplifyconfiguration.json';
-Amplify.configure(amplifyconfig);
-
 export default function MyApp({ Component, pageProps }) {
     if (Component.getLayout) {
         return <LayoutProvider>{Component.getLayout(<Component {...pageProps} />)}</LayoutProvider>;
