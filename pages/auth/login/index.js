@@ -7,6 +7,8 @@ import React, { useContext, useState } from 'react';
 import AppConfig from '../../../layout/AppConfig';
 import { LayoutContext } from '../../../layout/context/layoutcontext';
 import {logo} from '../../../public/logo.png';
+import { Chip } from 'primereact/chip';
+import { Message } from 'primereact/message';
 
 function Login() {
     const [rememberMe, setRememberMe] = useState(false);
@@ -15,6 +17,13 @@ function Login() {
     const dark = layoutConfig.colorScheme !== 'light';
     const [switchValue, setSwitchValue] = useState(false);
     const [checked, setChecked] = useState(false);
+    
+        const content = (
+            <div className="flex align-items-center">
+                <img alt="logo" src={`/labo.png`} width="32" />
+                <div className="ml-2">Bienvenue dans votre espace LIMS</div>
+            </div>
+        );
     return (
         <>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 800" className="fixed left-0 top-0 min-h-screen min-w-screen" preserveAspectRatio="none">
@@ -58,7 +67,21 @@ function Login() {
                                     Remember Me
                                 </label> */}
                             {/* </div> */}
-                            <a className="text-600 cursor-pointer hover:text-primary cursor-pointer ml-auto transition-colors transition-duration-300" onClick={() => router.push('/auth/forgotpassword')}>Réinitialiser le mot de passe?</a>
+                            {/* <Chip label="Bienvenue dans LIMS" style={{marginBottom: '12px'}} icon='pi pi-thumbs-up' /> */}
+                            {/* <Message
+                                style={{
+                                border: 'solid ##85b2f9',
+                                borderWidth: '0 0 0 6px',
+                                color: '#3b82f6',
+                                marginBottom: '12px'
+                                }}
+                                className="border-primary w-full justify-content-start"
+                                severity="info"
+                                content={content}
+                            /> */}
+                            {/* <br/> */}
+                             <a className="text-600 cursor-pointer hover:text-primary cursor-pointer ml-auto transition-colors transition-duration-300" onClick={() => router.push('/auth/forgotpassword')}><i className='pi pi-exclamation-triangle'></i>&nbsp;Réinitialiser le mot de passe?</a>
+                            
                         </div>
                         <Button label="Se connecter" className="w-full" onClick={() => router.push('/')}></Button>
                     </div>

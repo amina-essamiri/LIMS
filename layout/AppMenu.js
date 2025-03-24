@@ -360,22 +360,110 @@ const AppMenu = () => {
         //         }
         //     ]
         // },
+        // {
+        //     label: 'Gestion des utilisateurs',
+        //     icon: 'pi pi-fw pi-user',
+        //     items: [
+        //         {
+        //             label: 'Liste des utilisateurs',
+        //             icon: 'pi pi-fw pi-list',
+        //             to: '/profile/list'
+        //         },
+        //         {
+        //             label: 'Créer un utilisateur ',
+        //             icon: 'pi pi-fw pi-plus',
+        //             to: '/profile/create'
+        //         }
+        //     ]
+        // },
         {
-            label: 'Gestion des utilisateurs',
-            icon: 'pi pi-fw pi-user',
-            items: [
-                {
-                    label: 'Liste des utilisateurs',
-                    icon: 'pi pi-fw pi-list',
-                    to: '/profile/list'
-                },
-                {
-                    label: 'Créer un utilisateur ',
-                    icon: 'pi pi-fw pi-plus',
-                    to: '/profile/create'
-                }
-            ]
-        },
+                label: 'Eléments de navigation',
+                icon: 'pi pi-fw pi-briefcase',
+                items: [
+                    // {
+                    //     label: 'Landing',
+                    //     icon: 'pi pi-fw pi-globe',
+                    //     to: '/landing'
+                    // },
+                    {
+                        label: 'Utilisateurs',
+                        icon: 'pi pi-fw pi-user',
+                        items: [
+                            {
+                                label: 'Liste des utilisateurs',
+                                icon: 'pi pi-fw pi-list',
+                                to: '/users/list'
+                            },
+                            {
+                                label: 'Créer un utilisateur ',
+                                icon: 'pi pi-fw pi-plus',
+                                to: '/users/create'
+                            }
+                    ]
+                    },
+                    {
+                        label: 'Clients',
+                        icon: 'pi pi-fw pi-building',
+                        items: [
+                            {
+                                label: 'Liste des clients',
+                                icon: 'pi pi-fw pi-users',
+                                to: '/clients/list'
+                            },
+                            {
+                                label: 'Créer un client',
+                                icon: 'pi pi-fw pi-plus',
+                                to: '/clients/create'
+                            },
+                        ]
+                    },
+                    // {
+                    //     label: 'Crud',
+                    //     icon: 'pi pi-fw pi-pencil',
+                    //     to: '/pages/crud'
+                    // },
+                    // {
+                    //     label: 'Timeline',
+                    //     icon: 'pi pi-fw pi-calendar',
+                    //     to: '/pages/timeline'
+                    // },
+                    // {
+                    //     label: 'Invoice',
+                    //     icon: 'pi pi-fw pi-dollar',
+                    //     to: '/pages/invoice'
+                    // },
+                    // {
+                    //     label: 'About Us',
+                    //     icon: 'pi pi-fw pi-user',
+                    //     to: '/pages/aboutus'
+                    // },
+                    // {
+                    //     label: 'Help',
+                    //     icon: 'pi pi-fw pi-question-circle',
+                    //     to: '/pages/help'
+                    // },
+                    // {
+                    //     label: 'Not Found',
+                    //     icon: 'pi pi-fw pi-exclamation-circle',
+                    //     to: '/pages/notfound'
+                    // },
+                    // {
+                    //     label: 'Empty',
+                    //     icon: 'pi pi-fw pi-circle-off',
+                    //     to: '/pages/empty'
+                    // },
+                    // {
+                    //     label: 'FAQ',
+                    //     icon: 'pi pi-fw pi-question',
+                    //     to: '/pages/faq'
+                    // },
+                    // {
+                    //     label: 'Contact Us',
+                    //     icon: 'pi pi-fw pi-phone',
+                    //     to: '/pages/contact'
+                    // }
+                ]
+            },
         
         // {
         //     label: 'Hierarchy',
