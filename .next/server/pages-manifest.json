@@ -1,9 +1,0 @@
-{
-  "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
-  "/_document": "pages/_document.js",
-  "/apps/blog/list": "pages/apps/blog/list.js",
-  "/auth/lockscreen": "pages/auth/lockscreen.js",
-  "/": "pages/index.js",
-  "/auth/error": "pages/auth/error.js"
-}
