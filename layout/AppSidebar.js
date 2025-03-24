@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import AppMenu from './AppMenu';
 import { LayoutContext } from './context/layoutcontext';
 import { MenuProvider } from './context/menucontext';
+import Image from 'next/image';
 
 const AppSidebar = () => {
     const { setLayoutState } = useContext(LayoutContext);
@@ -11,9 +12,9 @@ const AppSidebar = () => {
     };
     return (
         <>
-            <div className="sidebar-header">
+            <div className="sidebar-header" style={{ marginBottom: '4px', padding: '10px' }}>
                 <Link href="/" className="app-logo">
-                    <svg width="124" height="22" viewBox="0 0 124 22" fill="none" xmlns="http://www.w3.org/2000/svg" className="app-logo-normal">
+                        {/* <svg width="124" height="22" viewBox="0 0 124 22" fill="none" xmlns="http://www.w3.org/2000/svg" className="app-logo-normal">
                         <path d="M10.4851 0L0 20.9465H3.53702L10.4856 6.07843L17.2944 20.9465H20.9715L10.4851 0Z" fill="var(--logo-color)" />
                         <path d="M13.84 15.7927L16.2077 21.0016H11.7682L13.84 15.7927Z" fill="var(--logo-color)" />
                         <path d="M9.04645 21.0016L6.67875 15.7927L4.60701 21.0016H9.04645Z" fill="var(--logo-color)" />
@@ -37,7 +38,10 @@ const AppSidebar = () => {
                         <path d="M10.4851 0L0 20.9465H3.53702L10.4856 6.07843L17.2944 20.9465H20.9715L10.4851 0Z" fill="var(--logo-color)" />
                         <path d="M13.8399 15.793L16.2076 21.0019H11.7681L13.8399 15.793Z" fill="var(--logo-color)" />
                         <path d="M9.04637 21.0019L6.67867 15.793L4.60693 21.0019H9.04637Z" fill="var(--logo-color)" />
-                    </svg>
+                    </svg>             
+                                          */}
+                    
+                    <img src={`/logo.png`} width="60px"  alt="App Logo" className=""  />
                 </Link>
                 <button className="layout-sidebar-anchor p-link z-2 mb-2" type="button" onClick={anchor}></button>
             </div>

@@ -39,7 +39,7 @@ function Login() {
                         <div className="text-900 text-xl font-bold"><img src={`/logo.png`} alt='logo' width="70px" style={{ marginLeft: '140px'}} /></div>
                         {/* <span className="text-600 font-medium">Please enter your details</span> */}
                     </div>
-                    <span className=" mb-4 text-600 font-bold block text-center">Veuillez entrer vos identifiants</span>
+                    {/* <span className=" mb-4 text-600 font-bold block text-center">Veuillez entrer vos identifiants</span> */}
                     <div className="flex flex-column">
                         <span className="p-input-icon-left w-full mb-4">
                             <i className="pi pi-envelope"></i>

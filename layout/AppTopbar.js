@@ -30,12 +30,12 @@ const AppTopbar = forwardRef((props, ref) => {
                 <ul className="topbar-menu">
                     <li className="topbar-search">
                         <span className="p-input-icon-left">
-                            <i className="pi pi-search"></i>
-                            <InputText type="text" placeholder="Search" className="w-12rem sm:w-full" />
+                            {/* <i className="pi pi-search"></i> */}
+                            {/* <InputText type="text" placeholder="Search" className="w-12rem sm:w-full" /> */}
                         </span>
                     </li>
                     <li className="ml-3">
-                        <Button type="button" icon="pi pi-cog" text rounded className="p-button-text p-button-secondary flex-shrink-0" onClick={onConfigButtonClick}></Button>
+                        {/* <Button type="button" icon="pi pi-cog" text rounded className="p-button-text p-button-secondary flex-shrink-0" onClick={onConfigButtonClick}></Button> */}
                     </li>
                     <li className="topbar-profile">
                         <button type="button" className="p-link" onClick={showProfileSidebar}>
