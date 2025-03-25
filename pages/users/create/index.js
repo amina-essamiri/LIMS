@@ -159,7 +159,7 @@ function ProfileCreate() {
             <Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
             <Tooltip target=".custom-upload-btn" content="Upload" position="bottom" />
             <Tooltip target=".custom-cancel-btn" content="Clear" position="bottom" />
-            <span className="text-900 text-xl font-bold mb-4 block text-blue-700"><i className="pi pi-users" /> &nbsp;&nbsp;Créer un utilisateur</span>
+            <span className="text-900 text-xl font-bold mb-4 block text-blue-700"><i className="pi pi-user" />&nbsp;&nbsp;Créer un utilisateur</span>
             <div className="grid">
                 {/* <div className="col-12 lg:col-2">
                     <div className="text-900 font-medium text-xl mb-3">Profile</div>

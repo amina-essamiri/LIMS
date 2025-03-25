@@ -114,7 +114,7 @@ function List() {
                     <i className="pi pi-search"></i>
                     <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Global Search" className="w-full" />
                 </span>
-                <Button type="button" icon="pi pi-user-plus" label="Ajouter" className="p-button-outlined w-full sm:w-auto flex-order-0 sm:flex-order-1" onClick={() => router.push('/profile/create')} />
+                <Button type="button" icon="pi pi-user-plus" label="Ajouter" className="p-button-outlined w-full sm:w-auto flex-order-0 sm:flex-order-1" onClick={() => router.push('/users/create')} />
             </div>
         );
     };
@@ -159,6 +159,7 @@ function List() {
     return (
         <div className="card">
             <Toast ref={toast} />
+            <span className="text-900 text-xl font-bold mb-4 block text-blue-700"><i className="pi pi-users" /> &nbsp;&nbsp;Liste des utilisateurs</span>
             <DataTable
                 ref={dt}
                 value={customers}

@@ -10,6 +10,7 @@ import { Tooltip } from 'primereact/tooltip';
 import { Tag } from 'primereact/tag';
 import { Password } from 'primereact/password';
 
+
 function ProfileCreate() {
     const [countries, setCountries] = useState([]);
     const [selectedCountry, setSelectedCountry] = useState(null);
@@ -159,12 +160,8 @@ function ProfileCreate() {
             <Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
             <Tooltip target=".custom-upload-btn" content="Upload" position="bottom" />
             <Tooltip target=".custom-cancel-btn" content="Clear" position="bottom" />
-            <span className="text-900 text-xl font-bold mb-4 block text-blue-700"><i className="pi pi-users" /> &nbsp;&nbsp;Créer un utilisateur</span>
+            <span className="text-900 text-xl font-bold mb-4 block text-blue-700"><i className="pi pi-user" /> &nbsp;&nbsp;Créer client</span>
             <div className="grid">
-                {/* <div className="col-12 lg:col-2">
-                    <div className="text-900 font-medium text-xl mb-3">Profile</div>
-                    <p className="m-0 p-0 text-600 line-height-3 mr-3">Odio euismod lacinia at quis risus sed vulputate odio.</p>
-                </div> */}
                 <div className="col-12 lg:col-10">
                     <div className="grid formgrid p-fluid">
                         <div className="field mb-4 col-12 md:col-6">

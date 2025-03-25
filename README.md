@@ -1,36 +1,47 @@
-# Apollo-React
+# Metronic 9 | All-in-One Tailwind based React Template for Modern Web Applications
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Quick Setup
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
+```sh
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Compile and Hot-Reload for Development
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```sh
+npm run dev
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### Type-Check, Compile and Minify for Production
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```sh
+npm run build
+```
 
-## Learn More
+### Lint with [ESLint](https://eslint.org/)
 
-To learn more about Next.js, take a look at the following resources:
+```sh
+npm run lint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## React Documentation
+- Full documentation for the React version is coming soon! In the meantime, explore the source code and reach out to us for technical assistance through our support channels.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Shadcn UI Components
+- Explore a wide range of components at [Shadcn UI](https://ui.shadcn.com). 
+- Easily integrate any component into your project and style it using Metronic’s design system.
+- Seamless Shadcn UI to Metronic UI style mapping is pre-configured in the `src/styles/shadcn.ui.css` file.
+- Find customized Shadcn UI components tailored for Metronic in the `src/components/ui` directory.
 
-## Deploy on Vercel
+## Setup Demos(Demo 1 - Demo 10)
+- Please refer to this guide to set up your preferred demo effortlessly. [Metronic 9 Tailwind React Demos Setup](https://devs.keenthemes.com/question/metronic-9-tailwind-react-demos-setup)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## HTML Documentation
+- You can seamlessly use static HTML components in the React version by copying and pasting the HTML code. For reference, visit the. [Metronic HTML Documentation](https://keenthemes.com/metronic/tailwind/docs/components/avatar)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Get Metronic Pulse
+Metronic Pulse is a Laravel REST API boilerplate built for Metronic React applications.
+[Learn more](https://keenthemes.com/products/metronic-pulse)
+
+## Support
+- For technical help, our dedicated support team is available via the [Support Center](https://devs.keenthemes.com)
