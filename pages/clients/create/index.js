@@ -9,10 +9,10 @@ import { ProgressBar } from 'primereact/progressbar';
 import { Tooltip } from 'primereact/tooltip';
 import { Tag } from 'primereact/tag';
 import { Password } from 'primereact/password';
+import { InputSwitch } from "primereact/inputswitch";
 
 
 function ProfileCreate() {
-    const [countries, setCountries] = useState([]);
     const [selectedCountry, setSelectedCountry] = useState(null);
     const toast = useRef(null);
     const [totalSize, setTotalSize] = useState(0);
@@ -20,143 +20,117 @@ function ProfileCreate() {
     const [dropdownValue, setDropdownValue] = useState(null);
     const [dropdownValue1, setDropdownValue1] = useState(null);
     const [dropdownValue2, setDropdownValue2] = useState(null);
+    const [checked, setChecked] = useState(true);
+
     const [value, setValue] = useState('');
+    const cities = [
+        { name: 'Casablanca' },
+        { name: 'Rabat' },
+        { name: 'Marrakech' },
+        { name: 'Fes' },
+        { name: 'Tangier' },
+        { name: 'Agadir' },
+        { name: 'Meknes' },
+        { name: 'Oujda' },
+        { name: 'Kenitra' },
+        { name: 'Tetouan' },
+        { name: 'Safi' },
+        { name: 'El Jadida' },
+        { name: 'Nador' },
+        { name: 'Beni Mellal' },
+        { name: 'Khemisset' },
+        { name: 'Ifrane' },
+        { name: 'Taroudant' },
+        { name: 'Skhirat' },
+        { name: 'Ksar El Kebir' },
+        { name: 'Errachidia' },
+        { name: 'Dakhla' },
+        { name: 'Laayoune' },
+        { name: 'Taza' },
+        { name: 'Sidi Ifni' },
+        { name: 'Azrou' },
+        { name: 'Berkane' },
+        { name: 'Tinghir' },
+        { name: 'Ouarzazate' },
+        { name: 'Settat' },
+        { name: 'Al Hoceima' },
+        { name: 'Chefchaouen' },
+        { name: 'El Kelaa des Srarhna' },
+        { name: 'Khenifra' },
+        { name: 'Sidi Kacem' },
+        { name: 'Boulmane' },
+        { name: 'Khouribga' },
+        { name: 'Driouch' },
+        { name: 'Mdiq' },
+        { name: 'Moulay Bousselham' },
+        { name: 'Nador' },
+        { name: 'Oualidia' },
+        { name: 'Ait Melloul' },
+        { name: 'Assilah' },
+        { name: 'Tiznit' },
+        { name: 'Safi' },
+        { name: 'Sidi Ifni' },
+        { name: 'Tiflet' },
+        { name: 'Fkih Ben Saleh' },
+        { name: 'Midelt' },
+        { name: 'Tarfaya' },
+        { name: 'Taza' },
+        { name: 'Zagora' },
+        { name: 'Guelmim' },
+        { name: 'Sidi Bennour' },
+        { name: 'Ben Guerir' },
+        { name: 'Settat' },
+        { name: 'Marrakech' },
+        { name: 'Casablanca' }
+    ];
+    
+    const selectedCountryTemplate = (option, props) => {
+        if (option) {
+            return (
+                <div className="flex align-items-center">
+                    <div>{option.name}</div>
+                </div>
+            );
+        }
+        return <span>{props.placeholder}</span>;
+    };
+    const countryOptionTemplate = (option) => {
+        return (
+            <div className="flex align-items-center">
+                <div>{option.name}</div>
+            </div>
+        );
+    };
     const dropdownValues = [
-        { name: 'Gestionnaire', code: 'NY' },
-        { name: 'Employé', code: 'RM' },
-        { name: 'Directeur', code: 'LDN' },
-        { name: 'Assistant', code: 'IST' },
-        { name: 'Ressources humaines', code: 'PRS' },
-        { name: "Technologies de l'information", code: 'IST1' },
-        { name: 'Finance', code: 'IST12' },
-        { name: 'Marketing', code: 'IST13' },
+        { name: 'Client', code: 'NY' },
+        { name: 'Fournisseur', code: 'RM' },
+        { name: 'Entreprise', code: 'LDN' },
+        { name: 'Particulier', code: 'IST' },
+        { name: 'Laboratoire', code: 'PRS' },
+        { name: "Administration", code: 'IST1' },
     ];
     const dropdownValues1 = [
-        { name: 'Biologie', code: 'NY' },
-        { name: 'Physico-Chimie', code: 'RM' },
-        { name: 'Recherche et Développement', code: 'LDN' },
-        { name: 'Contrôle Qualité', code: 'IST' },
-        { name: 'Administration', code: 'PRS' },
-        { name: "Formation et Sensibilisation de l'information", code: 'IST1' },
-        { name: 'Informatique et Support Technique', code: 'IST12' },
-        { name: 'Marketing', code: 'IST13' },
+        { name: 'Scolaire' },
+        { name: 'Hôtellerie' },
+        { name: 'Construction aéronautique' },
+        { name: 'Agroalimentaire' },
+        { name: 'Environnement' },
+        { name: 'Textile' },
+        { name: 'Cosmétique' },
+        { name: 'Régie' },
+        { name: 'Restauration' },
+        { name: 'Santé' },
+        { name: 'Autre' },
     ];
+    
     const dropdownValues2 = [
         { name: 'Super Admin', code: 'NY' },
         { name: 'Admin', code: 'RM' },
         { name: 'Utilisateur', code: 'LDN' },
     ];
-    const onTemplateSelect = (e) => {
-        let _totalSize = totalSize;
-        let files = e.files;
-
-        Object.keys(files).forEach((key) => {
-            _totalSize += files[key].size || 0;
-        });
-
-        setTotalSize(_totalSize);
-    };
-
-    const onTemplateUpload = (e) => {
-        let _totalSize = 0;
-
-        e.files.forEach((file) => {
-            _totalSize += file.size || 0;
-        });
-
-        setTotalSize(_totalSize);
-        toast.current.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
-    };
-
-    const onTemplateRemove = (file, callback) => {
-        setTotalSize(totalSize - file.size);
-        callback();
-    };
-
-    const onTemplateClear = () => {
-        setTotalSize(0);
-    };
-
-    const headerTemplate = (options) => {
-        const { className, chooseButton, uploadButton, cancelButton } = options;
-        const value = totalSize / 10000;
-        const formatedValue = fileUploadRef && fileUploadRef.current ? fileUploadRef.current.formatSize(totalSize) : '0 B';
-
-        return (
-            <div className={className} style={{ backgroundColor: 'transparent', display: 'flex', alignItems: 'center' }}>
-                {chooseButton}
-                {uploadButton}
-                {cancelButton}
-                <div className="flex align-items-center gap-3 ml-auto">
-                    <span>{formatedValue} / 1 MB</span>
-                    <ProgressBar value={value} showValue={false} style={{ width: '10rem', height: '12px' }}></ProgressBar>
-                </div>
-            </div>
-        );
-    };
-    const itemTemplate1 = (file, props) => {
-        return (
-            <div className="flex align-items-center flex-wrap">
-                <div className="flex align-items-center" style={{ width: '40%' }}>
-                    <img alt={file.name} role="presentation" src={file.objectURL} width={100} />
-                    <span className="flex flex-column text-left ml-3">
-                        {file.name}
-                        <small>{new Date().toLocaleDateString()}</small>
-                    </span>
-                </div>
-                <Tag value={props.formatSize} severity="warning" className="px-3 py-2" />
-                <Button type="button" icon="pi pi-times" className="p-button-outlined p-button-rounded p-button-danger ml-auto" onClick={() => onTemplateRemove(file, props.onRemove)} />
-            </div>
-        );
-    };
-    const emptyTemplate = () => {
-        return (
-            <div className="flex align-items-center flex-column">
-                <i className="pi pi-image mt-3 p-5" style={{ fontSize: '5em', borderRadius: '50%', backgroundColor: 'var(--surface-b)', color: 'var(--surface-d)' }}></i>
-                <span style={{ fontSize: '1.2em', color: 'var(--text-color-secondary)' }} className="my-5">
-                Glisser-déposer l&apos;image ici
-                </span>
-            </div>
-        );
-    };
-
-    const chooseOptions = { icon: 'pi pi-fw pi-images', iconOnly: true, className: 'custom-choose-btn p-button-rounded p-button-outlined' };
-    const uploadOptions = { icon: 'pi pi-fw pi-cloud-upload', iconOnly: true, className: 'custom-upload-btn p-button-success p-button-rounded p-button-outlined' };
-    const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'custom-cancel-btn p-button-danger p-button-rounded p-button-outlined' };
-    useEffect(() => {
-        setCountries([
-            { name: 'Australia', code: 'AU' },
-            { name: 'Brazil', code: 'BR' },
-            { name: 'China', code: 'CN' },
-            { name: 'Egypt', code: 'EG' },
-            { name: 'France', code: 'FR' },
-            { name: 'Germany', code: 'DE' },
-            { name: 'India', code: 'IN' },
-            { name: 'Japan', code: 'JP' },
-            { name: 'Spain', code: 'ES' },
-            { name: 'United States', code: 'US' }
-        ]);
-    }, []);
-
-    const itemTemplate = (option) => {
-        return (
-            <div className="flex align-items-center">
-                <img
-                    src={`/demo/images/flag/flag_placeholder.png`}
-                    onError={(e) => (e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png')}
-                    className={'mr-2 flag flag-' + option.code.toLowerCase()}
-                    style={{ width: '18px' }}
-                    alt={option.name}
-                />
-                <div>{option.name}</div>
-            </div>
-        );
-    };
-
     return (
         <div className="card">
             <Toast ref={toast}></Toast>
-
             <Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
             <Tooltip target=".custom-upload-btn" content="Upload" position="bottom" />
             <Tooltip target=".custom-cancel-btn" content="Clear" position="bottom" />
@@ -182,21 +156,6 @@ function ProfileCreate() {
                                 <InputText type="text" placeholder="Prénom" />
                             </span>
                         </div>
-                        <div className="field mb-4 col-12 mt-4">
-                            <label htmlFor="avatar" className="font-medium text-900">
-                                Avatar
-                            </label>
-                            <FileUpload ref={fileUploadRef} name="demo[]" url="/api/upload" multiple accept="image/*" maxFileSize={1000000}
-                            onUpload={onTemplateUpload} onSelect={onTemplateSelect} onError={onTemplateClear} onClear={onTemplateClear}
-                            headerTemplate={headerTemplate} itemTemplate={itemTemplate1} emptyTemplate={emptyTemplate}
-                            chooseOptions={chooseOptions} uploadOptions={uploadOptions} cancelOptions={cancelOptions} />
-                        </div>
-                        <div className="field mb-4 col-12">
-                            <label htmlFor="bio" className="font-medium text-900">
-                                Bio
-                            </label>
-                            <InputTextarea id="bio" type="text" rows={5} autoResize></InputTextarea>
-                        </div>
                         <div className="field mb-4 col-12 md:col-6">
                             <label htmlFor="phone" className="font-medium text-900">
                             Numéro de téléphone
@@ -220,51 +179,132 @@ function ProfileCreate() {
                                 Adresse
                             </label>
                             <span className="p-input-icon-left">
-                                <i className="pi pi-home" />
-                                <InputText type="text" placeholder="Adresse" />
+                                <i className="pi pi-map-marker" />
+                                <InputText type="text" placeholder="Adresse client" />
                             </span>
                         </div>
                         <div className="field mb-4 col-12 md:col-6">
-                        <label htmlFor="city" className="font-medium text-900">
-                                Fonction
+                            <label htmlFor="email" className="font-medium text-900">
+                            Code postal
                             </label>
-                            <Dropdown value={dropdownValue} onChange={(e) => setDropdownValue(e.value)} options={dropdownValues} optionLabel="name" placeholder="Select" />
+                            <span className="p-input-icon-left">
+                                <i className="pi pi-map" />
+                                <InputText type="text" placeholder="Code postal" />
+                            </span>
+                        </div>
+                        <div className="field mb-4 col-12 md:col-6">
+                            <label htmlFor="email" className="font-medium text-900">
+                            Site web
+                            </label>
+                            <span className="p-input-icon-left">
+                                <i className="pi pi-globe" />
+                                <InputText type="text" placeholder="URL" />
+                            </span>
+                        </div>
+                        <div className="field mb-4 col-12 md:col-6">
+                            <label htmlFor="email" className="font-medium text-900">
+                            Fax
+                            </label>
+                            <span className="p-input-icon-left">
+                                <i className="pi pi-print" />
+                                <InputText type="text" placeholder="Fax" />
+                            </span>
+                        </div>
+                        <div className="field mb-4 col-12 md:col-6">
+                            <label htmlFor="email" className="font-medium text-900">
+                            Forme juridique
+                            </label>
+                            <span className="p-input-icon-left">
+                                <i className="pi pi-print" />
+                                <InputText type="text" placeholder="Forme juridique" />
+                            </span>
+                        </div>
+                        <div className="field mb-4 col-12 md:col-6">
+                            <label htmlFor="email" className="font-medium text-900">
+                            Identifiant Commun de l&apos;Entreprise
+                            </label>
+                            <span className="p-input-icon-left">
+                                <i className="pi pi-id-card" />
+                                <InputText type="text" placeholder="ICE" />
+                            </span>
+                        </div>
+                        <div className="field mb-4 col-12 md:col-6">
+                            <label htmlFor="email" className="font-medium text-900">
+                            CNSS
+                            </label>
+                            <span className="p-input-icon-left">
+                                <i className="pi pi-id-card" />
+                                <InputText type="text" placeholder="CNSS" />
+                            </span>
+                        </div>
+                        <div className="field mb-4 col-12 md:col-6">
+                            <label htmlFor="email" className="font-medium text-900">
+                            Registre du Commerce
+                            </label>
+                            <span className="p-input-icon-left">
+                                <i className="pi pi-file" />
+                                <InputText type="text" placeholder="RC" />
+                            </span>
+                        </div>
+                        <div className="field mb-4 col-12 md:col-6">
+                            <label htmlFor="email" className="font-medium text-900">
+                            Taxe Professionnelle
+                            </label>
+                            <span className="p-input-icon-left">
+                                <i className="pi pi-file-edit" />
+                                <InputText type="text" placeholder="TP" />
+                            </span>
                         </div>
                         <div className="field mb-4 col-12 md:col-6">
                             <label htmlFor="city" className="font-medium text-900">
-                            Départements 
+                                Type Client
+                            </label>
+                            <Dropdown value={dropdownValue} onChange={(e) => setDropdownValue(e.value)} options={dropdownValues} optionLabel="name" placeholder="Select" />
+                        </div>
+                        <div className="field mb-4 col-12 md:col-6" >
+                            <label htmlFor="city" className="font-medium text-900">
+                                Ville
+                            </label>
+                            <Dropdown value={selectedCountry} onChange={(e) => setSelectedCountry(e.value)} options={cities} optionLabel="name" placeholder="Selectionner une ville" 
+                                filter valueTemplate={selectedCountryTemplate} itemTemplate={countryOptionTemplate}  />
+                        </div>
+                        <div className="field mb-4 col-12 md:col-6">
+                            <label htmlFor="city" className="font-medium text-900">
+                            Secteurs d&apos;activité
                             </label>
                             <Dropdown value={dropdownValue1} onChange={(e) => setDropdownValue1(e.value)} options={dropdownValues1} optionLabel="name" placeholder="Select" />
                         </div>
                         <div className="field mb-4 col-12 md:col-6">
-                            <label htmlFor="city" className="font-medium text-900">
-                            Rôle
-                            </label>
-                            <Dropdown value={dropdownValue2} onChange={(e) => setDropdownValue1(e.value)} options={dropdownValues2} optionLabel="name" placeholder="Select" />
-                        </div>
-                        {/* <div className="field mb-4 col-12 md:col-6">
-                            <label htmlFor="state" className="font-medium text-900">
-                                State
-                            </label>
-                            <InputText id="state" type="text" />
-                        </div> */}
-                        <div className="field mb-4 col-12 md:col-6">
-                            <label htmlFor="phone" className="font-medium text-900">
-                            Login
+                            <label htmlFor="email" className="font-medium text-900">
+                            Remise client
                             </label>
                             <span className="p-input-icon-left">
-                                <i className="pi pi-sign-in" />
-                                <InputText type="text" placeholder="username" />
+                                <i className="pi pi-credit-card" />
+                                <InputText type="text" placeholder="RCL" />
                             </span>
                         </div>
                         <div className="field mb-4 col-12 md:col-6">
-                            <label htmlFor="phone" className="font-medium text-900">
-                            Mot de passe
+                            <label htmlFor="email" className="font-medium text-900">
+                            Limite de crédit maximale
                             </label>
                             <span className="p-input-icon-left">
-                                <i className="pi pi-user" />
-                                <Password value={value} onChange={(e) => setValue(e.target.value)} />
+                                <i className="pi pi-credit-card" />
+                                <InputText type="text" placeholder="MC" />
                             </span>
+                        </div>
+                        <div className="field mb-4 col-12 md:col-6">
+                            <label htmlFor="op" className="font-medium text-900">
+                            Observation publique
+                            </label>
+                            <InputTextarea id="op" type="text" rows={2}></InputTextarea>
+                        </div>
+
+
+                        <div className="field mb-4 col-12  md:col-6">
+                            <label htmlFor="opr" className="font-medium text-900">
+                            Observation privée
+                            </label>
+                            <InputTextarea id="opr" type="text" rows={2}></InputTextarea>
                         </div>
                         <div className="col-12 text-right">
                         <Button label="Annuler" className="p-button-outlined p-button-secondary w-auto mt-3 mr-5" icon="pi pi-times"></Button>
