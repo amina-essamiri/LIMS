@@ -307,8 +307,8 @@ function ProfileCreate() {
                             <InputTextarea id="opr" type="text" rows={2}></InputTextarea>
                         </div>
                         <div className="col-12 text-right">
-                        <Button label="Annuler" className="p-button-outlined p-button-secondary w-auto mt-3 mr-5" icon="pi pi-times"></Button>
-                        <Button label="Enregistrer" className="p-button-outlined p-button-info w-auto mt-3" icon="pi pi-save" ></Button>
+                            <Button label="Annuler" className="p-button-outlined p-button-danger w-auto mt-3 mr-5" icon="pi pi-times"></Button>
+                            <Button label="Enregistrer" className="p-button p-button-info w-auto mt-3" icon="pi pi-save" ></Button>
                         </div>
                     </div>
                 </div>

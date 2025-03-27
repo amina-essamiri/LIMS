@@ -417,6 +417,65 @@ const AppMenu = () => {
                             },
                         ]
                     },
+                ]
+            },
+                    {
+                            label: 'Réglage',
+                            icon: 'pi pi-fw pi-briefcase',
+                            items: [
+                                // {
+                                //     label: 'Landing',
+                                //     icon: 'pi pi-fw pi-globe',
+                                //     to: '/landing'
+                                // },
+                                {
+                                    label: 'Autres réglages',
+                                    icon: 'pi pi-fw pi-cog',
+                                    items: [
+                                        {
+                                            label: 'Régions',
+                                            icon: 'pi pi-fw pi-map',
+                                            to: ''
+                                        },
+                                        // {
+                                        //     label: 'Error',
+                                        //     icon: 'pi pi-fw pi-times-circle',
+                                        //     to: '/auth/error'
+                                        // },
+                                        // {
+                                        //     label: 'Access Denied',
+                                        //     icon: 'pi pi-fw pi-lock',
+                                        //     to: '/auth/access'
+                                        // },
+                                        // {
+                                        //     label: 'Register',
+                                        //     icon: 'pi pi-fw pi-user-plus',
+                                        //     to: '/auth/register'
+                                        // },
+                                        // {
+                                        //     label: 'Forgot Password',
+                                        //     icon: 'pi pi-fw pi-question',
+                                        //     to: '/auth/forgotpassword'
+                                        // },
+                                        // {
+                                        //     label: 'New Password',
+                                        //     icon: 'pi pi-fw pi-cog',
+                                        //     to: '/auth/newpassword'
+                                        // },
+                                        // {
+                                        //     label: 'Verification',
+                                        //     icon: 'pi pi-fw pi-envelope',
+                                        //     to: '/auth/verification'
+                                        // },
+                                        // {
+                                        //     label: 'Lock Screen',
+                                        //     icon: 'pi pi-fw pi-eye-slash',
+                                        //     to: '/auth/lockscreen'
+                                        // }
+                                    ]
+                    
+                                }            
+                        ]},
                     // {
                     //     label: 'Crud',
                     //     icon: 'pi pi-fw pi-pencil',
@@ -462,8 +521,7 @@ const AppMenu = () => {
                     //     icon: 'pi pi-fw pi-phone',
                     //     to: '/pages/contact'
                     // }
-                ]
-            },
+
         
         // {
         //     label: 'Hierarchy',

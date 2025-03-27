@@ -145,7 +145,7 @@ const Layout = (props) => {
                     <div className="layout-content">{props.children}</div>
                 </div>
                 <AppProfileSidebar />
-                <AppConfig />
+                {/* <AppConfig /> */}
                 <div className="layout-mask"></div>
             </div>
         </React.Fragment>

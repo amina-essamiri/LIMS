@@ -185,7 +185,7 @@ function ProfileCreate() {
                                 <InputText type="text" placeholder="Prénom" />
                             </span>
                         </div>
-                        <div className="field mb-4 col-12 mt-4">
+                        {/* <div className="field mb-4 col-12 mt-4">
                             <label htmlFor="avatar" className="font-medium text-900">
                                 Avatar
                             </label>
@@ -193,13 +193,8 @@ function ProfileCreate() {
                             onUpload={onTemplateUpload} onSelect={onTemplateSelect} onError={onTemplateClear} onClear={onTemplateClear}
                             headerTemplate={headerTemplate} itemTemplate={itemTemplate1} emptyTemplate={emptyTemplate}
                             chooseOptions={chooseOptions} uploadOptions={uploadOptions} cancelOptions={cancelOptions} />
-                        </div>
-                        <div className="field mb-4 col-12">
-                            <label htmlFor="bio" className="font-medium text-900">
-                                Bio
-                            </label>
-                            <InputTextarea id="bio" type="text" rows={5} autoResize></InputTextarea>
-                        </div>
+                        </div> */}
+                        
                         <div className="field mb-4 col-12 md:col-6">
                             <label htmlFor="phone" className="font-medium text-900">
                             Numéro de téléphone
@@ -239,12 +234,14 @@ function ProfileCreate() {
                             </label>
                             <Dropdown value={dropdownValue1} onChange={(e) => setDropdownValue1(e.value)} options={dropdownValues1} optionLabel="name" placeholder="Select" />
                         </div>
+                        
                         <div className="field mb-4 col-12 md:col-6">
                             <label htmlFor="city" className="font-medium text-900">
                             Rôle
                             </label>
-                            <Dropdown value={dropdownValue2} onChange={(e) => setDropdownValue1(e.value)} options={dropdownValues2} optionLabel="name" placeholder="Select" />
+                            <Dropdown value={dropdownValue2} onChange={(e) => setDropdownValue2(e.value)} options={dropdownValues2} optionLabel="name" placeholder="Select" />
                         </div>
+                        
                         {/* <div className="field mb-4 col-12 md:col-6">
                             <label htmlFor="state" className="font-medium text-900">
                                 State
@@ -269,9 +266,15 @@ function ProfileCreate() {
                                 <Password value={value} onChange={(e) => setValue(e.target.value)} />
                             </span>
                         </div>
+                        <div className="field mb-4 col-12">
+                            <label htmlFor="bio" className="font-medium text-900">
+                                Bio
+                            </label>
+                            <InputTextarea id="bio" type="text" rows={5} autoResize></InputTextarea>
+                        </div>
                         <div className="col-12 text-right">
-                        <Button label="Annuler" className="p-button-outlined p-button-secondary w-auto mt-3 mr-5" icon="pi pi-times"></Button>
-                        <Button label="Enregistrer" className="p-button-outlined p-button-info w-auto mt-3" icon="pi pi-save" ></Button>
+                            <Button label="Annuler" className="p-button-outlined p-button-danger w-auto mt-3 mr-5" icon="pi pi-times"></Button>
+                            <Button label="Enregistrer" className="p-button p-button-info w-auto mt-3" icon="pi pi-save" ></Button>
                         </div>
                     </div>
                 </div>
