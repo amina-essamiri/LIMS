@@ -8,7 +8,7 @@ export const LayoutProvider = (props) => {
     const [layoutConfig, setLayoutConfig] = useState({
         ripple: false,
         inputStyle: 'filled',
-        menuMode: 'static',
+        menuMode: 'horizontal',
         menuTheme: 'colorScheme',
         colorScheme: 'light',
         theme: 'indigo',

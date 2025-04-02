@@ -102,8 +102,6 @@ function ProfileCreate() {
         );
     };
     const dropdownValues = [
-        { name: 'Client', code: 'NY' },
-        { name: 'Fournisseur', code: 'RM' },
         { name: 'Entreprise', code: 'LDN' },
         { name: 'Particulier', code: 'IST' },
         { name: 'Laboratoire', code: 'PRS' },
