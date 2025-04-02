@@ -133,8 +133,8 @@ function ProfileCreate() {
             <Tooltip target=".custom-upload-btn" content="Upload" position="bottom" />
             <Tooltip target=".custom-cancel-btn" content="Clear" position="bottom" />
             <span className="text-900 text-xl font-bold mb-4 block text-blue-700"><i className="pi pi-user" /> &nbsp;&nbsp;Créer client</span>
-            <div className="grid">
-                <div className="col-12 lg:col-10">
+            <div className="grid ml-6">
+                <div className="col-12 lg:col-10 ml-6">
                     <div className="grid formgrid p-fluid">
                         <div className="field mb-4 col-12 md:col-6">
                             <label htmlFor="phone" className="font-medium text-900">
