@@ -41,7 +41,7 @@ const AppSidebar = () => {
                     </svg>             
                                           */}
                     
-                    <img src={`/logo.png`} width="45px"  alt="App Logo" className="mr-5 ml-2"  />
+                    <img src={`/logo.png`} width="50px"  alt="App Logo" className="mr-5 ml-4"  />
                 </Link>
                 <button className="layout-sidebar-anchor p-link z-2 mb-2" type="button" onClick={anchor}></button>
             </div>
