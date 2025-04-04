@@ -145,318 +145,318 @@ const AppMenu = () => {
                 }
             ]
         },
-        {
-            label: 'Paramètres',
-            icon: 'pi pi-cog',
-            items: [
-                {
-                    label: 'Analytics',
-                    icon: 'pi pi-fw pi-book',
-                    items: [
-                        {
-                            label: 'Consultation',
-                            icon: 'pi pi-fw pi-file-edit',
-                            // to: '/auth/login'
-                        },
-                        {
-                            label: 'Matrices',
-                            icon: 'pi pi-fw pi-qrcode',
-                            // to: '/auth/error'
-                        },
-                        {
-                            label: 'Groupe d’Analyse',
-                            icon: 'pi pi-fw pi-table',
-                            // to: '/auth/access'
-                        },
-                        {
-                            label: 'Type d’Analyse',
-                            icon: 'pi pi-fw pi-folder',
-                            // to: '/auth/register'
-                        },
-                        {
-                            label: 'Méthode d’analyse',
-                            icon: 'pi pi-fw pi-stop',
-                            // to: '/auth/forgotpassword'
-                        },
-                        {
-                            label: 'Règlementations',
-                            icon: 'pi pi-fw pi-sliders-h',
-                            // to: '/auth/newpassword'
-                        },
-                        {
-                            label: 'Paramètres',
-                            icon: 'pi pi-fw pi-wrench',
-                            // to: '/auth/verification'
-                        },
-                        {
-                            label: 'Analyses',
-                            icon: 'pi pi-fw pi-bars',
-                            // to: '/auth/lockscreen'
-                        },
-                        {
-                            label: 'Produits',
-                            icon: 'pi pi-fw pi-box',
-                            // to: '/auth/lockscreen'
-                        },
-                        {
-                            label: 'Méthode Prélèvement',
-                            icon: 'pi pi-fw pi-palette',
-                            // to: '/auth/lockscreen'
-                        },
-                        {
-                            label: 'Accréditation',
-                            icon: 'pi pi-fw pi-verified',
-                            // to: '/auth/lockscreen'
-                        },
-                        {
-                            label: 'Unité',
-                            icon: 'pi pi-fw pi-bookmark',
-                            // to: '/auth/lockscreen'
-                        },
-                        {
-                            label: 'Moment de prélèvement',
-                            icon: 'pi pi-fw pi-clock',
-                            // to: '/auth/lockscreen'
-                        },
-                        {
-                            label: 'Lieux de prélèvement',
-                            icon: 'pi pi-fw pi-map-marker',
-                            // to: '/auth/lockscreen'
-                        },
-                        {
-                            label: 'Moyenne de Prélèvement',
-                            icon: 'pi pi-fw pi-clone',
-                            // to: '/auth/lockscreen'
-                        },
-                        {
-                            label: 'Cadre d’analyse',
-                            icon: 'pi pi-fw pi-ticket',
-                            // to: '/auth/lockscreen'
-                        },
-                        {
-                            label: 'Fasse d’échantillon',
-                            icon: 'pi pi-fw pi-tag',
-                            // to: '/auth/lockscreen'
-                        }
-                    ]
-                },
-                {
-                    label: 'Utilisateurs',
-                    icon: 'pi pi-fw pi-users',
-                    items: [
-                        {
-                            label: 'Ajouter utilisateur',
-                            icon: 'pi pi-fw pi-plus',
-                            // to: '/auth/login'
-                        },
-                        {
-                            label: 'Liste utilisateurs',
-                            icon: 'pi pi-fw pi-list',
-                            // to: '/auth/error'
-                        },
-                        {
-                            label: 'Ajouter Profile',
-                            icon: 'pi pi-fw pi-user',
-                            // to: '/auth/access'
-                        },
-                        {
-                            label: 'Liste profiles',
-                            icon: 'pi pi-fw pi-users',
-                            // to: '/auth/register'
-                        },
-                        {
-                            label: 'Départements',
-                            icon: 'pi pi-fw pi-window-minimize',
-                            // to: '/auth/forgotpassword'
-                        }
-                    ]
-                },
-                {
-                    label: 'Finance',
-                    icon: 'pi pi-fw pi-money-bill',
-                    items: [
-                        {
-                            label: 'Login',
-                            icon: 'pi pi-fw pi-sign-in',
-                            to: '/auth/login'
-                        },
-                        {
-                            label: 'Error',
-                            icon: 'pi pi-fw pi-times-circle',
-                            to: '/auth/error'
-                        },
-                        {
-                            label: 'Access Denied',
-                            icon: 'pi pi-fw pi-lock',
-                            to: '/auth/access'
-                        },
-                        {
-                            label: 'Register',
-                            icon: 'pi pi-fw pi-user-plus',
-                            to: '/auth/register'
-                        },
-                        {
-                            label: 'Forgot Password',
-                            icon: 'pi pi-fw pi-question',
-                            to: '/auth/forgotpassword'
-                        },
-                        {
-                            label: 'New Password',
-                            icon: 'pi pi-fw pi-cog',
-                            to: '/auth/newpassword'
-                        },
-                        {
-                            label: 'Verification',
-                            icon: 'pi pi-fw pi-envelope',
-                            to: '/auth/verification'
-                        },
-                        {
-                            label: 'Lock Screen',
-                            icon: 'pi pi-fw pi-eye-slash',
-                            to: '/auth/lockscreen'
-                        }
-                    ]
-                },
-                {
-                    label: 'Dictionnaire',
-                    icon: 'pi pi-fw pi-clone',
-                    items: [
-                        {
-                            label: 'Login',
-                            icon: 'pi pi-fw pi-sign-in',
-                            to: '/auth/login'
-                        },
-                        {
-                            label: 'Error',
-                            icon: 'pi pi-fw pi-times-circle',
-                            to: '/auth/error'
-                        },
-                        {
-                            label: 'Access Denied',
-                            icon: 'pi pi-fw pi-lock',
-                            to: '/auth/access'
-                        },
-                        {
-                            label: 'Register',
-                            icon: 'pi pi-fw pi-user-plus',
-                            to: '/auth/register'
-                        },
-                        {
-                            label: 'Forgot Password',
-                            icon: 'pi pi-fw pi-question',
-                            to: '/auth/forgotpassword'
-                        },
-                        {
-                            label: 'New Password',
-                            icon: 'pi pi-fw pi-cog',
-                            to: '/auth/newpassword'
-                        },
-                        {
-                            label: 'Verification',
-                            icon: 'pi pi-fw pi-envelope',
-                            to: '/auth/verification'
-                        },
-                        {
-                            label: 'Lock Screen',
-                            icon: 'pi pi-fw pi-eye-slash',
-                            to: '/auth/lockscreen'
-                        }
-                    ]
-                },
-                {
-                    label: 'Equipements',
-                    icon: 'pi pi-fw pi-inbox',
-                    items: [
-                        {
-                            label: 'Login',
-                            icon: 'pi pi-fw pi-sign-in',
-                            to: '/auth/login'
-                        },
-                        {
-                            label: 'Error',
-                            icon: 'pi pi-fw pi-times-circle',
-                            to: '/auth/error'
-                        },
-                        {
-                            label: 'Access Denied',
-                            icon: 'pi pi-fw pi-lock',
-                            to: '/auth/access'
-                        },
-                        {
-                            label: 'Register',
-                            icon: 'pi pi-fw pi-user-plus',
-                            to: '/auth/register'
-                        },
-                        {
-                            label: 'Forgot Password',
-                            icon: 'pi pi-fw pi-question',
-                            to: '/auth/forgotpassword'
-                        },
-                        {
-                            label: 'New Password',
-                            icon: 'pi pi-fw pi-cog',
-                            to: '/auth/newpassword'
-                        },
-                        {
-                            label: 'Verification',
-                            icon: 'pi pi-fw pi-envelope',
-                            to: '/auth/verification'
-                        },
-                        {
-                            label: 'Lock Screen',
-                            icon: 'pi pi-fw pi-eye-slash',
-                            to: '/auth/lockscreen'
-                        }
-                    ]
-                },
-                {
-                    label: 'Laboratoire',
-                    icon: 'pi pi-fw pi-building',
-                    items: [
-                        {
-                            label: 'Login',
-                            icon: 'pi pi-fw pi-sign-in',
-                            to: '/auth/login'
-                        },
-                        {
-                            label: 'Error',
-                            icon: 'pi pi-fw pi-times-circle',
-                            to: '/auth/error'
-                        },
-                        {
-                            label: 'Access Denied',
-                            icon: 'pi pi-fw pi-lock',
-                            to: '/auth/access'
-                        },
-                        {
-                            label: 'Register',
-                            icon: 'pi pi-fw pi-user-plus',
-                            to: '/auth/register'
-                        },
-                        {
-                            label: 'Forgot Password',
-                            icon: 'pi pi-fw pi-question',
-                            to: '/auth/forgotpassword'
-                        },
-                        {
-                            label: 'New Password',
-                            icon: 'pi pi-fw pi-cog',
-                            to: '/auth/newpassword'
-                        },
-                        {
-                            label: 'Verification',
-                            icon: 'pi pi-fw pi-envelope',
-                            to: '/auth/verification'
-                        },
-                        {
-                            label: 'Lock Screen',
-                            icon: 'pi pi-fw pi-eye-slash',
-                            to: '/auth/lockscreen'
-                        }
-                    ]
-                }
-            ]
-        },
+        // {
+        //     label: 'Paramètres',
+        //     icon: 'pi pi-cog',
+        //     items: [
+        //         {
+        //             label: 'Analytics',
+        //             icon: 'pi pi-fw pi-book',
+        //             items: [
+        //                 {
+        //                     label: 'Consultation',
+        //                     icon: 'pi pi-fw pi-file-edit',
+        //                     // to: '/auth/login'
+        //                 },
+        //                 {
+        //                     label: 'Matrices',
+        //                     icon: 'pi pi-fw pi-qrcode',
+        //                     // to: '/auth/error'
+        //                 },
+        //                 {
+        //                     label: 'Groupe d’Analyse',
+        //                     icon: 'pi pi-fw pi-table',
+        //                     // to: '/auth/access'
+        //                 },
+        //                 {
+        //                     label: 'Type d’Analyse',
+        //                     icon: 'pi pi-fw pi-folder',
+        //                     // to: '/auth/register'
+        //                 },
+        //                 {
+        //                     label: 'Méthode d’analyse',
+        //                     icon: 'pi pi-fw pi-stop',
+        //                     // to: '/auth/forgotpassword'
+        //                 },
+        //                 {
+        //                     label: 'Règlementations',
+        //                     icon: 'pi pi-fw pi-sliders-h',
+        //                     // to: '/auth/newpassword'
+        //                 },
+        //                 {
+        //                     label: 'Paramètres',
+        //                     icon: 'pi pi-fw pi-wrench',
+        //                     // to: '/auth/verification'
+        //                 },
+        //                 {
+        //                     label: 'Analyses',
+        //                     icon: 'pi pi-fw pi-bars',
+        //                     // to: '/auth/lockscreen'
+        //                 },
+        //                 {
+        //                     label: 'Produits',
+        //                     icon: 'pi pi-fw pi-box',
+        //                     // to: '/auth/lockscreen'
+        //                 },
+        //                 {
+        //                     label: 'Méthode Prélèvement',
+        //                     icon: 'pi pi-fw pi-palette',
+        //                     // to: '/auth/lockscreen'
+        //                 },
+        //                 {
+        //                     label: 'Accréditation',
+        //                     icon: 'pi pi-fw pi-verified',
+        //                     // to: '/auth/lockscreen'
+        //                 },
+        //                 {
+        //                     label: 'Unité',
+        //                     icon: 'pi pi-fw pi-bookmark',
+        //                     // to: '/auth/lockscreen'
+        //                 },
+        //                 {
+        //                     label: 'Moment de prélèvement',
+        //                     icon: 'pi pi-fw pi-clock',
+        //                     // to: '/auth/lockscreen'
+        //                 },
+        //                 {
+        //                     label: 'Lieux de prélèvement',
+        //                     icon: 'pi pi-fw pi-map-marker',
+        //                     // to: '/auth/lockscreen'
+        //                 },
+        //                 {
+        //                     label: 'Moyenne de Prélèvement',
+        //                     icon: 'pi pi-fw pi-clone',
+        //                     // to: '/auth/lockscreen'
+        //                 },
+        //                 {
+        //                     label: 'Cadre d’analyse',
+        //                     icon: 'pi pi-fw pi-ticket',
+        //                     // to: '/auth/lockscreen'
+        //                 },
+        //                 {
+        //                     label: 'Fasse d’échantillon',
+        //                     icon: 'pi pi-fw pi-tag',
+        //                     // to: '/auth/lockscreen'
+        //                 }
+        //             ]
+        //         },
+        //         {
+        //             label: 'Utilisateurs',
+        //             icon: 'pi pi-fw pi-users',
+        //             items: [
+        //                 {
+        //                     label: 'Ajouter utilisateur',
+        //                     icon: 'pi pi-fw pi-plus',
+        //                     // to: '/auth/login'
+        //                 },
+        //                 {
+        //                     label: 'Liste utilisateurs',
+        //                     icon: 'pi pi-fw pi-list',
+        //                     // to: '/auth/error'
+        //                 },
+        //                 {
+        //                     label: 'Ajouter Profile',
+        //                     icon: 'pi pi-fw pi-user',
+        //                     // to: '/auth/access'
+        //                 },
+        //                 {
+        //                     label: 'Liste profiles',
+        //                     icon: 'pi pi-fw pi-users',
+        //                     // to: '/auth/register'
+        //                 },
+        //                 {
+        //                     label: 'Départements',
+        //                     icon: 'pi pi-fw pi-window-minimize',
+        //                     // to: '/auth/forgotpassword'
+        //                 }
+        //             ]
+        //         },
+        //         {
+        //             label: 'Finance',
+        //             icon: 'pi pi-fw pi-money-bill',
+        //             items: [
+        //                 {
+        //                     label: 'Login',
+        //                     icon: 'pi pi-fw pi-sign-in',
+        //                     to: '/auth/login'
+        //                 },
+        //                 {
+        //                     label: 'Error',
+        //                     icon: 'pi pi-fw pi-times-circle',
+        //                     to: '/auth/error'
+        //                 },
+        //                 {
+        //                     label: 'Access Denied',
+        //                     icon: 'pi pi-fw pi-lock',
+        //                     to: '/auth/access'
+        //                 },
+        //                 {
+        //                     label: 'Register',
+        //                     icon: 'pi pi-fw pi-user-plus',
+        //                     to: '/auth/register'
+        //                 },
+        //                 {
+        //                     label: 'Forgot Password',
+        //                     icon: 'pi pi-fw pi-question',
+        //                     to: '/auth/forgotpassword'
+        //                 },
+        //                 {
+        //                     label: 'New Password',
+        //                     icon: 'pi pi-fw pi-cog',
+        //                     to: '/auth/newpassword'
+        //                 },
+        //                 {
+        //                     label: 'Verification',
+        //                     icon: 'pi pi-fw pi-envelope',
+        //                     to: '/auth/verification'
+        //                 },
+        //                 {
+        //                     label: 'Lock Screen',
+        //                     icon: 'pi pi-fw pi-eye-slash',
+        //                     to: '/auth/lockscreen'
+        //                 }
+        //             ]
+        //         },
+        //         {
+        //             label: 'Dictionnaire',
+        //             icon: 'pi pi-fw pi-clone',
+        //             items: [
+        //                 {
+        //                     label: 'Login',
+        //                     icon: 'pi pi-fw pi-sign-in',
+        //                     to: '/auth/login'
+        //                 },
+        //                 {
+        //                     label: 'Error',
+        //                     icon: 'pi pi-fw pi-times-circle',
+        //                     to: '/auth/error'
+        //                 },
+        //                 {
+        //                     label: 'Access Denied',
+        //                     icon: 'pi pi-fw pi-lock',
+        //                     to: '/auth/access'
+        //                 },
+        //                 {
+        //                     label: 'Register',
+        //                     icon: 'pi pi-fw pi-user-plus',
+        //                     to: '/auth/register'
+        //                 },
+        //                 {
+        //                     label: 'Forgot Password',
+        //                     icon: 'pi pi-fw pi-question',
+        //                     to: '/auth/forgotpassword'
+        //                 },
+        //                 {
+        //                     label: 'New Password',
+        //                     icon: 'pi pi-fw pi-cog',
+        //                     to: '/auth/newpassword'
+        //                 },
+        //                 {
+        //                     label: 'Verification',
+        //                     icon: 'pi pi-fw pi-envelope',
+        //                     to: '/auth/verification'
+        //                 },
+        //                 {
+        //                     label: 'Lock Screen',
+        //                     icon: 'pi pi-fw pi-eye-slash',
+        //                     to: '/auth/lockscreen'
+        //                 }
+        //             ]
+        //         },
+        //         {
+        //             label: 'Equipements',
+        //             icon: 'pi pi-fw pi-inbox',
+        //             items: [
+        //                 {
+        //                     label: 'Login',
+        //                     icon: 'pi pi-fw pi-sign-in',
+        //                     to: '/auth/login'
+        //                 },
+        //                 {
+        //                     label: 'Error',
+        //                     icon: 'pi pi-fw pi-times-circle',
+        //                     to: '/auth/error'
+        //                 },
+        //                 {
+        //                     label: 'Access Denied',
+        //                     icon: 'pi pi-fw pi-lock',
+        //                     to: '/auth/access'
+        //                 },
+        //                 {
+        //                     label: 'Register',
+        //                     icon: 'pi pi-fw pi-user-plus',
+        //                     to: '/auth/register'
+        //                 },
+        //                 {
+        //                     label: 'Forgot Password',
+        //                     icon: 'pi pi-fw pi-question',
+        //                     to: '/auth/forgotpassword'
+        //                 },
+        //                 {
+        //                     label: 'New Password',
+        //                     icon: 'pi pi-fw pi-cog',
+        //                     to: '/auth/newpassword'
+        //                 },
+        //                 {
+        //                     label: 'Verification',
+        //                     icon: 'pi pi-fw pi-envelope',
+        //                     to: '/auth/verification'
+        //                 },
+        //                 {
+        //                     label: 'Lock Screen',
+        //                     icon: 'pi pi-fw pi-eye-slash',
+        //                     to: '/auth/lockscreen'
+        //                 }
+        //             ]
+        //         },
+        //         {
+        //             label: 'Laboratoire',
+        //             icon: 'pi pi-fw pi-building',
+        //             items: [
+        //                 {
+        //                     label: 'Login',
+        //                     icon: 'pi pi-fw pi-sign-in',
+        //                     to: '/auth/login'
+        //                 },
+        //                 {
+        //                     label: 'Error',
+        //                     icon: 'pi pi-fw pi-times-circle',
+        //                     to: '/auth/error'
+        //                 },
+        //                 {
+        //                     label: 'Access Denied',
+        //                     icon: 'pi pi-fw pi-lock',
+        //                     to: '/auth/access'
+        //                 },
+        //                 {
+        //                     label: 'Register',
+        //                     icon: 'pi pi-fw pi-user-plus',
+        //                     to: '/auth/register'
+        //                 },
+        //                 {
+        //                     label: 'Forgot Password',
+        //                     icon: 'pi pi-fw pi-question',
+        //                     to: '/auth/forgotpassword'
+        //                 },
+        //                 {
+        //                     label: 'New Password',
+        //                     icon: 'pi pi-fw pi-cog',
+        //                     to: '/auth/newpassword'
+        //                 },
+        //                 {
+        //                     label: 'Verification',
+        //                     icon: 'pi pi-fw pi-envelope',
+        //                     to: '/auth/verification'
+        //                 },
+        //                 {
+        //                     label: 'Lock Screen',
+        //                     icon: 'pi pi-fw pi-eye-slash',
+        //                     to: '/auth/lockscreen'
+        //                 }
+        //             ]
+        //         }
+        //     ]
+        // },
         
     ];
 
