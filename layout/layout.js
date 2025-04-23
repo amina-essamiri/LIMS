@@ -141,7 +141,7 @@ const Layout = (props) => {
                 <div className="layout-content-wrapper">
                     <AppTopbar ref={topbarRef} />
 
-                    <AppBreadCrumb className="content-breadcrumb"></AppBreadCrumb>
+                    {/* <AppBreadCrumb className="content-breadcrumb"></AppBreadCrumb> */}
                     <div className="layout-content">{props.children}</div>
                 </div>
                 <AppProfileSidebar />

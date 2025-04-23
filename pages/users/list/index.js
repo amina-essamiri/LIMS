@@ -4,157 +4,125 @@ import { Button } from 'primereact/button';
 import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 import { InputText } from 'primereact/inputtext';
-import { ProgressBar } from 'primereact/progressbar';
-import { Dialog } from 'primereact/dialog';
 import { Toast } from 'primereact/toast';
 import React, { useEffect, useRef, useState } from 'react';
-import { CustomerService } from '../../../demo/service/CustomerService';
-import { deleteUser } from 'aws-amplify/auth';
+
+// Simulated User Service with Moroccan names and additional fields (Role and Login)
+const UserService = {
+    getUsers: () => {
+        return Promise.resolve([
+            { id: 1, name: 'Ahmed El Ouardi', role: 'Admin', login: 'aelouardi' , isCollecteur: true, isPreleveur: false},
+            { id: 2, name: 'Fatima Zahra Belhaj', role: 'User', login: 'fzbelhaj', isCollecteur: false, isPreleveur: true },
+            { id: 3, name: 'Youssef Benjelloun', role: 'Admin', login: 'ybenjelloun', isCollecteur: true, isPreleveur: true },
+            { id: 4, name: 'Khadija Oussama', role: 'User', login: 'koussama', isCollecteur: true, isPreleveur: false },
+            { id: 5, name: 'Mounir Laaroussi', role: 'User', login: 'mlaaroussi', isCollecteur: true, isPreleveur: false },
+            { id: 6, name: 'Leila Boussaid', role: 'Admin', login: 'lboussaid', isCollecteur: false, isPreleveur: true },
+            { id: 7, name: 'Reda El Hamdaoui', role: 'User', login: 'relhamdaoui', isCollecteur: true, isPreleveur: false },
+            { id: 8, name: 'Sara Alaoui', role: 'Admin', login: 'salaoui', isCollecteur: true, isPreleveur: true },
+            { id: 9, name: 'Omar Kabbaj', role: 'User', login: 'okabbaj', isCollecteur: true, isPreleveur: false },
+            { id: 10, name: 'Nadia Lahlou', role: 'Admin', login: 'nlahlou', isCollecteur: true, isPreleveur: true },
+        ]);
+    },
+    deleteUser: (id) => {
+        return Promise.resolve({ success: true });
+    },
+};
 
 function List() {
-    const [customers, setCustomers] = useState([]);
-    const [customer, setCustomer] = useState([]);
-    const [filters, setFilters] = useState(null);
-
-    const [loading, setLoading] = useState(true);
-    const [userDialog, setUserDialog] = useState(false);
-    const [deleteUserDialog, setDeleteUserDialog] = useState(false);
-    const [deleteUsersDialog, setDeleteUsersDialog] = useState(false);
+    const [users, setUsers] = useState([]);
     const [globalFilterValue, setGlobalFilterValue] = useState('');
-    const router = useRouter();
+    const [filters, setFilters] = useState(null);
+    const [loading, setLoading] = useState(true);
     const toast = useRef(null);
     const dt = useRef(null);
-
-    const getCustomers = (data) => {
-        return [...(data || [])].map((d) => {
-            d.date = new Date(d.date);
-            return d;
-        });
-    };
-
-    const formatDate = (value) => {
-        return value.toLocaleDateString('en-US', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-        });
-    };
-    const hideDialog = () => {
-        setSubmitted(false);
-        setUserDialog(false);
-    };
-
-    const hideDeleteUserDialog = () => {
-        setDeleteUserDialog(false);
-    };
-
-    const hideDeleteUsersDialog = () => {
-        setDeleteUsersDialog(false);
-    };
-    const clearFilter = () => {
-        initFilters();
-    };
-
-    const initFilters = () => {
-        setFilters({
-            global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-            name: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-            'country.name': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-            representative: { value: null, matchMode: FilterMatchMode.IN },
-            date: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.DATE_IS }] },
-            activity: { value: null, matchMode: FilterMatchMode.BETWEEN }
-        });
-        setGlobalFilterValue('');
-    };
+    const router = useRouter();
 
     useEffect(() => {
-        CustomerService.getCustomersLarge().then((data) => {
-            setCustomers(getCustomers(data));
-            setLoading(false);
-        });
-        initFilters();
+        UserService.getUsers()
+            .then((data) => {
+                setUsers(data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                setLoading(false);
+                toast.current.show({ severity: 'error', summary: 'Erreur', detail: 'Échec du chargement des utilisateurs' });
+            });
     }, []);
 
     const onGlobalFilterChange = (e) => {
         const value = e.target.value;
-        let _filters = { ...filters };
-        _filters['global'].value = value;
-
-        setFilters(_filters);
         setGlobalFilterValue(value);
+        setFilters({
+            global: { value, matchMode: FilterMatchMode.CONTAINS },
+        });
     };
-    const deleteUser = () => {
-        // let _customers = customers.filter((val) => val.id !== product.id);
-        // setProducts(_customers);
-        setDeleteUserDialog(false);
-        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'User Deleted', life: 3000 });
+
+    const userTemplate = (rowData) => (
+        <span><i className="pi pi-user" style={{ color: 'var(--primary-color)' }} />&nbsp;{rowData.name}</span>
+    );
+
+    const openEditUserPage = (id) => {
+        router.push(`/users/edit/`);
     };
+
     const confirmDeleteUser = (user) => {
-        setCustomer(user);
-        setDeleteUserDialog(true);
+        UserService.deleteUser(user.id)
+            .then(() => {
+                toast.current.show({ severity: 'success', summary: 'Succès', detail: 'Utilisateur supprimé', life: 3000 });
+                setUsers(users.filter(u => u.id !== user.id)); // Remove user from the list after deletion
+            })
+            .catch(() => {
+                toast.current.show({ severity: 'error', summary: 'Erreur', detail: 'Échec de la suppression' });
+            });
     };
-    const actionBodyTemplate = (rowData) => {
-        return (
-            <>
-                <Button icon="pi pi-pencil" className="p-button-rounded p-button-success p-button-outlined mr-2"/>
-                <Button icon="pi pi-trash" className="p-button-rounded p-button-danger p-button-outlined" onClick={() => confirmDeleteUser(rowData)} />
-            </>
-        );
-};
-    const deleteUserDialogFooter = (
+
+    const actionBodyTemplate = (rowData) => (
         <>
-            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={hideDeleteUserDialog} />
-            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={deleteUser} />
+            <Button icon="pi pi-pencil" rounded text severity="success" className="mr-2" onClick={() => openEditUserPage(rowData.id)} />
+            <Button icon="pi pi-trash" rounded text severity="danger" onClick={() => confirmDeleteUser(rowData)} />
         </>
     );
+
     const renderHeader = () => {
         return (
             <div className="flex flex-wrap gap-2 align-items-center justify-content-between">
                 <span className="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0">
                     <i className="pi pi-search"></i>
-                    <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Global Search" className="w-full" />
+                    <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Rechercher des utilisateurs" className="w-full" />
                 </span>
-                <Button type="button" icon="pi pi-user-plus" label="Ajouter" className="p-button-outlined w-full sm:w-auto flex-order-0 sm:flex-order-1" onClick={() => router.push('/users/create')} />
+                <Button type="button" icon="pi pi-user-plus" rounded outlined tooltip="Ajouter" tooltipOptions={{ position: 'top' }} className="p-button-outlined" onClick={() => router.push('/users/create')} />
             </div>
         );
     };
-
-    const nameBodyTemplate = (customer) => {
-        return (
-            <>
-                <span className="p-column-title">UTILISATEURS</span>
-                {customer.name}
-            </>
-        );
+    const collecteurPreleveurTemplate = (rowData) => {
+        const isCollecteur = rowData.isCollecteur;
+        const isPreleveur = rowData.isPreleveur;
+    
+        if (isCollecteur && isPreleveur) {
+            return (
+                <span>
+                    <i className="pi pi-check-circle text-green-500 mr-1" />
+                    Collecteur / Prélèveur
+                </span>
+            );
+        } else if (isCollecteur) {
+            return (
+                <span>
+                    <i className="pi pi-check-circle text-green-500 mr-1" />
+                    Collecteur
+                </span>
+            );
+        } else if (isPreleveur) {
+            return (
+                <span>
+                    <i className="pi pi-check-circle text-green-500 mr-1" />
+                    Prélèveur
+                </span>
+            );
+        } else {
+            return <span className="text-400">—</span>; // Optional placeholder if none
+        }
     };
-
-    const countryBodyTemplate = (customer) => {
-        return (
-            <>
-                <img alt={customer.country.name} src={`/demo/images/flag/flag_placeholder.png`} className={'w-2rem mr-2 flag flag-' + customer.country.code} />
-                <span className="image-text">{customer.country.name}</span>
-            </>
-        );
-    };
-
-    const createdByBodyTemplate = (customer) => {
-        return (
-            <div className="inline-flex align-items-center">
-                <img alt={customer.representative.name} src={`/demo/images/avatar/${customer.representative.image}`} className="w-2rem mr-2" />
-                <span>{customer.representative.name}</span>
-            </div>
-        );
-    };
-
-    const dateBodyTemplate = (customer) => {
-        return formatDate(customer.date);
-    };
-
-    const activityBodyTemplate = (customer) => {
-        return <ProgressBar value={customer.activity} showValue={false} style={{ height: '.5rem' }} />;
-    };
-
-    const header = renderHeader();
 
     return (
         <div className="card">
@@ -162,35 +130,30 @@ function List() {
             <span className="text-900 text-xl font-bold mb-4 block text-blue-700"><i className="pi pi-users" /> &nbsp;&nbsp;Liste des utilisateurs</span>
             <DataTable
                 ref={dt}
-                value={customers}
-                header={header}
+                value={users}
+                header={renderHeader()}
                 paginator
                 rows={10}
                 responsiveLayout="scroll"
                 rowsPerPageOptions={[10, 25, 50]}
                 filters={filters}
                 loading={loading}
+                size="small"
                 className="datatable-responsive"
                 paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} users"
+                currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} utilisateurs"
             >
-                <Column field="name" header="UTILISATEUR" body={nameBodyTemplate} headerClassName="white-space-nowrap" style={{ width: '25%' }}></Column>
-                <Column field="country.name" header="Pays" body={countryBodyTemplate} headerClassName="white-space-nowrap" style={{ width: '25%' }}></Column>
-                <Column field="date" header="Date d'entrée" body={dateBodyTemplate} headerClassName="white-space-nowrap" style={{ width: '25%' }}></Column>
-                {/* <Column field="representative.name" header="Created By" body={createdByBodyTemplate} headerClassName="white-space-nowrap" style={{ width: '25%' }}></Column> */}
-                <Column field="name" header="LOGIN" body={nameBodyTemplate} headerClassName="white-space-nowrap" style={{ width: '25%' }}></Column>
-                <Column body={actionBodyTemplate} headerStyle={{ minWidth: '10rem' }}></Column>
+                <Column field="name" header="Nom de l'utilisateur" body={userTemplate} headerClassName="white-space-nowrap" size="small" style={{ width: '30%' }} sortable />
+                <Column field="role" header="Rôle" headerClassName="white-space-nowrap" size="small" style={{ width: '25%' }} sortable />
+                <Column field="login" header="Login" headerClassName="white-space-nowrap" size="small" style={{ width: '30%' }} sortable />
+                <Column
+                    header="Collecteur / Prélèveur"
+                    body={collecteurPreleveurTemplate}
+                    headerClassName="white-space-nowrap"
+                    style={{ width: '25%' }}
+                />
+                <Column body={actionBodyTemplate} headerStyle={{ minWidth: '10rem' }} bodyStyle={{ textAlign: 'center', overflow: 'visible' }} />
             </DataTable>
-            <Dialog visible={deleteUserDialog} style={{ width: '450px' }} header="Confirm" modal footer={deleteUserDialogFooter} onHide={hideDeleteUserDialog}>
-                                    <div className="flex align-items-center justify-content-center">
-                                        <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem' }} />
-                                        {customer && (
-                                            <span>
-                                                Etes-vous sûr de vouloir supprimer <b>{customer.name}</b>?
-                                            </span>
-                                        )}
-                                    </div>
-                                </Dialog>
         </div>
     );
 }

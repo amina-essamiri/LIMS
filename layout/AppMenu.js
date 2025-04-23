@@ -21,11 +21,11 @@ const AppMenu = () => {
                     icon: 'pi pi-fw pi-user-plus',
                     // to: '/'
                 },
-                {
-                    label: 'Contacts',
-                    icon: 'pi pi-fw pi-user-edit',
-                    // to: '/'
-                }
+                // {
+                //     label: 'Contacts',
+                //     icon: 'pi pi-fw pi-user-edit',
+                //     // to: '/'
+                // }
             ]
         },
         {

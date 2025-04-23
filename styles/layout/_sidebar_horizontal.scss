@@ -1,5 +1,8 @@
 @media screen and (min-width: $breakpoint) {
     .layout-container {
+        height: 100%;
+        margin: 0;
+        overflow: hidden;  /* Prevent scrolling */
         &.layout-horizontal {
             .layout-topbar {
                 .topbar-menubutton {
@@ -95,6 +98,8 @@
                         position: absolute;
                         left: auto;
                         top: 3rem;
+                        margin-top: 30px;
+                        // bottom:  3rem;
                         min-width: 15rem;
                         background-color: var(--surface-overlay);
                         box-shadow: var(--sidebar-shadow);

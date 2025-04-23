@@ -12,7 +12,7 @@ const AppSidebar = () => {
     };
     return (
         <>
-            <div className="sidebar-header" style={{ marginBottom: '4px', padding: '10px' }}>
+            <div className="sidebar-header">
                 <Link href="/" className="app-logo">
                         {/* <svg width="124" height="22" viewBox="0 0 124 22" fill="none" xmlns="http://www.w3.org/2000/svg" className="app-logo-normal">
                         <path d="M10.4851 0L0 20.9465H3.53702L10.4856 6.07843L17.2944 20.9465H20.9715L10.4851 0Z" fill="var(--logo-color)" />
@@ -41,7 +41,7 @@ const AppSidebar = () => {
                     </svg>             
                                           */}
                     
-                    <img src={`/logo.png`} width="50px"  alt="App Logo" className="mr-5 ml-4"  />
+                    <img src={`/logo.png`} width="50px"  alt="App Logo"  />
                 </Link>
                 <button className="layout-sidebar-anchor p-link z-2 mb-2" type="button" onClick={anchor}></button>
             </div>

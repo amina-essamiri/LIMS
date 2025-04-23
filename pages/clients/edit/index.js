@@ -4,19 +4,17 @@ import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
 import { Toast } from 'primereact/toast';
 import { InputTextarea } from 'primereact/inputtextarea';
-import ContactDialogButton from './ContactDialogButton';
 import React, { useState, useRef, useEffect } from 'react';
 
-function CreateClient() {
+function ModifyClient() {
     const toast = useRef(null);
-    const router = useRouter();
     const [selectedCountry, setSelectedCountry] = useState(null);
     const [dropdownValue, setDropdownValue] = useState(null);
     const [dropdownValue1, setDropdownValue1] = useState(null);
     const [dropdownValue2, setDropdownValue2] = useState(null);
     const [value, setValue] = useState('');
     const [checked, setChecked] = useState(true);
-
+    const router = useRouter();
     const cities = [
         { name: 'Casablanca' },
         { name: 'Rabat' },
@@ -79,7 +77,6 @@ function CreateClient() {
     ];
     const close = () => router.push(`/clients/list`);
 
-    
     const countryOptionTemplate = (option) => {
         return (
             <div className="flex align-items-center">
@@ -154,8 +151,7 @@ function CreateClient() {
         <div className="card">
                     <Toast ref={toast}></Toast>
                     <span className="text-900 text-xl font-bold mb-4 block text-blue-700 mb-5">
-                        <i className="pi pi-user" />&nbsp;&nbsp;Créer un client&nbsp;&nbsp;
-                        <span style={{float:'right'}}><ContactDialogButton /></span>
+                        <i className="pi pi-user" />&nbsp;&nbsp;Modifier un client
                     </span>
                     <div className="flex justify-content-between">
                         <div className="col-6">
@@ -290,10 +286,9 @@ function CreateClient() {
                             </div>
                         </div>
                     </div>
-                    
                 </div>
     );
 }
 
-export default CreateClient;
+export default ModifyClient;
 

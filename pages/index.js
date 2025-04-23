@@ -165,14 +165,14 @@ export default function ECommerce() {
             labels: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
             datasets: [
                 {
-                    label: 'Revenu',
+                    label: '2004',
                     backgroundColor: documentStyle.getPropertyValue('--primary-500'),
                     barThickness: 12,
                     borderRadius: 12,
                     data: weeks[selectedWeek].data[0]
                 },
                 {
-                    label: 'Bénéfice',
+                    label: '2005',
                     backgroundColor: documentStyle.getPropertyValue('--primary-200'),
                     barThickness: 12,
                     borderRadius: 12,
@@ -330,7 +330,7 @@ export default function ECommerce() {
             <div className="col-12 xl:col-9">
                 <div className="card h-auto">
                     <div className="flex align-items-start justify-content-between mb-6">
-                        <span className="text-900 text-xl font-semibold">Aperçu des revenus</span>
+                        <span className="text-900 text-xl font-semibold">Nombre d&apos;échantillons</span>
                         <Dropdown options={weeks} value={selectedWeek} className="w-10rem" optionLabel="label" onChange={onWeekChange}></Dropdown>
                     </div>
                     <Chart height="300px" type="bar" data={chartData.barData} options={chartOptions.barOptions}></Chart>

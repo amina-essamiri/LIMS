@@ -4,11 +4,11 @@
         align-items: center;
         margin: 0;
         padding: 0;
+        margin-left: 10px;
         list-style: none;
         gap: 1rem;
         flex-wrap: wrap;
         color: var(--text-color-secondary);
-
         li {
             font-weight: 600;
         }
@@ -16,6 +16,6 @@
 }
 
 .content-breadcrumb {
-    margin-bottom: 2rem;
-    padding: 0 .5rem;
+    margin-bottom: 0;
+    padding: 0;
 }
