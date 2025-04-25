@@ -14,7 +14,7 @@ const AppMenu = () => {
                 {
                     label: 'Fournisseurs',
                     icon: 'pi pi-fw pi-user',
-                    // to: '/'
+                    to: '/fournisseurs/list'
                 },
                 {
                     label: 'Sous-traitants',

@@ -387,7 +387,8 @@ const AppConfig = (props) => {
                                 </div>
                                 <div className="mt-1">
                                     <hr className="mb-2 mx-2 border-top-2 border-none surface-border" />
-                                    <a className="m-2 flex align-items-center cursor-pointer p-2 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                    <a className="m-2 flex align-items-center cursor-pointer p-2 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
+                                    onClick={() => handleNavigation('/labo/list')}>
                                         <Avatar image="/logo.png" shape="square" size="large" />
                                         <span className="font-bold">Laboratoire</span>
                                     </a>
