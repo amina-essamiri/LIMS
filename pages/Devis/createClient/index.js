@@ -76,7 +76,8 @@ function CreateClient() {
         { name: 'Marrakech' },
         { name: 'Casablanca' }
     ];
-    const close = () => router.push(`/clients/list`);
+    const close = () => router.push(`/Devis/create`);
+    const close2 = () => router.push(`/Devis/create`);
 
     
     const countryOptionTemplate = (option) => {
@@ -204,7 +205,6 @@ function CreateClient() {
                                     <span className="p-input-icon-left">
                                         <Dropdown value={selectedCountry} onChange={(e) => setSelectedCountry(e.value)} options={cities} optionLabel="name" placeholder="Selectionner une ville" 
                                         filter valueTemplate={selectedCountryTemplate} itemTemplate={countryOptionTemplate}  />
-                                        
                                     </span>
                                     <br />
                                     <span className="p-input-icon-left">
@@ -284,7 +284,7 @@ function CreateClient() {
                             {/* Button Section */}
                             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginTop: '50px' }}>
                                 <Button className="p-button-danger p-button-outlined p-3" label="Annuler" onClick={() => close()} icon="pi pi-fw pi-times" style={{ maxWidth: '200px' }} />
-                                <Button className="p-button-primary p-3" label="Enregistrer" icon="pi pi-fw pi-save" style={{ maxWidth: '200px' }} />
+                                <Button className="p-button-primary p-3" label="Enregistrer" icon="pi pi-fw pi-save" onClick={() => close2()} style={{ maxWidth: '200px' }} />
                             </div>
                         </div>
                     </div>
@@ -292,6 +292,5 @@ function CreateClient() {
                 </div>
     );
 }
-
 export default CreateClient;
 

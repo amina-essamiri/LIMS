@@ -130,8 +130,22 @@ const AppConfig = (props) => {
                                                 </li>
                                                 <li>
                                                     <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
+                                                        <i className="pi pi-link mr-2" style={{color: 'var(--primary-color)'}} ></i>
+                                                        <span className="font-medium">Paramètres</span>
+                                                        <Ripple />
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
                                                         <i className="pi pi-fw pi-stop mr-2" style={{color: 'var(--primary-color)'}} ></i>
                                                         <span className="font-medium">Méthode d’analyse</span>
+                                                        <Ripple />
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
+                                                        <i className="pi pi-fw pi-ticket mr-2" style={{color: 'var(--primary-color)'}} ></i>
+                                                        <span className="font-medium">Cadre d’analyse</span>
                                                         <Ripple />
                                                     </a>
                                                 </li>
@@ -198,13 +212,7 @@ const AppConfig = (props) => {
                                                         <Ripple />
                                                     </a>
                                                 </li>
-                                                <li>
-                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
-                                                        <i className="pi pi-fw pi-ticket mr-2" style={{color: 'var(--primary-color)'}} ></i>
-                                                        <span className="font-medium">Cadre d’analyse</span>
-                                                        <Ripple />
-                                                    </a>
-                                                </li>
+                                                
                                                 <li>
                                                     <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
                                                         <i className="pi pi-fw pi-tag mr-2" style={{color: 'var(--primary-color)'}} ></i>
@@ -288,21 +296,24 @@ const AppConfig = (props) => {
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
+                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full"
+                                                    onClick={() => handleNavigation('/conditionReglements/list')}>
                                                         <i className="pi pi-fw pi-money-bill mr-2" style={{color: 'var(--primary-color)'}}></i>
                                                         <span className="font-medium">Condition de règlement</span>
                                                         <Ripple />
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
+                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full"
+                                                    onClick={() => handleNavigation('/validitesDevis/list')}>
                                                         <i className="pi pi-fw pi-check mr-2" style={{color: 'var(--primary-color)'}}></i>
                                                         <span className="font-medium">Période de validité</span>
                                                         <Ripple />
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
+                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full"
+                                                    onClick={() => handleNavigation('/typesDevis/list')}>
                                                         <i className="pi pi-fw pi-credit-card mr-2" style={{color: 'var(--primary-color)'}}></i>
                                                         <span className="font-medium">Type devis</span>
                                                         <Ripple />

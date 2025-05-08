@@ -19,7 +19,7 @@ const AppMenu = () => {
                 {
                     label: 'Sous-traitants',
                     icon: 'pi pi-fw pi-user-plus',
-                    // to: '/'
+                    to: '/sous-traitants/list'
                 },
                 // {
                 //     label: 'Contacts',
@@ -40,7 +40,7 @@ const AppMenu = () => {
                 {
                     label: 'Ajouter un devis',
                     icon: 'pi pi-fw pi-plus',
-                    // to: '/clients/create'
+                    to: '/Devis/create'
                 }
             ]
         },

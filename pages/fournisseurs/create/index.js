@@ -4,6 +4,7 @@ import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
 import { Toast } from 'primereact/toast';
 import { InputTextarea } from 'primereact/inputtextarea';
+
 import React, { useState, useRef, useEffect } from 'react';
 
 function CreateClient() {
@@ -74,11 +75,8 @@ function CreateClient() {
         { name: 'Ben Guerir' },
         { name: 'Settat' },
         { name: 'Marrakech' },
-        { name: 'Casablanca' }
     ];
-    const close = () => router.push(`/clients/list`);
-
-    
+    const close = () => router.push(`/fournisseurs/list`);
     const countryOptionTemplate = (option) => {
         return (
             <div className="flex align-items-center">
@@ -96,12 +94,7 @@ function CreateClient() {
         }
         return <span>{props.placeholder}</span>;
     };
-    const dropdownValues = [
-        { name: 'Entreprise', code: 'LDN' },
-        { name: 'Particulier', code: 'IST' },
-        { name: 'Laboratoire', code: 'PRS' },
-        { name: "Administration", code: 'IST1' },
-    ];
+
 
     const dropdownValues1 = [
         { name: 'Scolaire' },
@@ -153,7 +146,7 @@ function CreateClient() {
         <div className="card">
                     <Toast ref={toast}></Toast>
                     <span className="text-900 text-xl font-bold mb-4 block text-blue-700 mb-5">
-                        <i className="pi pi-user" />&nbsp;&nbsp;Créer un client&nbsp;&nbsp;
+                        <i className="pi pi-user" />&nbsp;&nbsp;Créer un fournisseur&nbsp;&nbsp;
                     </span>
                     <div className="flex justify-content-between">
                         <div className="col-6">
@@ -178,7 +171,7 @@ function CreateClient() {
         
                                     <span className="p-input-icon-left">
                                         <i className="pi pi-map-marker" />
-                                        <InputText type="text" placeholder="Adresse client" />
+                                        <InputText type="text" placeholder="Adresse fournisseur" />
                                     </span>
                                     <br />
         
@@ -198,10 +191,6 @@ function CreateClient() {
                                     </span>
                                     <br />
                                     <span className="p-input-icon-left">
-                                        <Dropdown value={dropdownValue} onChange={(e) => setDropdownValue(e.value)} options={dropdownValues} optionLabel="name" placeholder="Type Client" />
-                                    </span>
-                                    <br />
-                                    <span className="p-input-icon-left">
                                         <Dropdown value={selectedCountry} onChange={(e) => setSelectedCountry(e.value)} options={cities} optionLabel="name" placeholder="Selectionner une ville" 
                                         filter valueTemplate={selectedCountryTemplate} itemTemplate={countryOptionTemplate}  />
                                         
@@ -211,6 +200,10 @@ function CreateClient() {
                                         <Dropdown value={dropdownValue1} onChange={(e) => setDropdownValue1(e.value)} options={dropdownValues1} optionLabel="name" placeholder="Secteurs d'activité" />
                                     </span>
                                     <br />
+                                    <div className="mb-4">
+                                        <br />
+                                        <br />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -252,7 +245,7 @@ function CreateClient() {
                                     <div className="mb-4 ">
                                         <span className="p-input-icon-left">
                                             <i className="pi pi-credit-card" />
-                                            <InputText type="text" placeholder="Remise client" />
+                                            <InputText type="text" placeholder="Remise fournisseur" />
                                         </span>
                                     </div>
                                     <div className="mb-4 ">
@@ -263,7 +256,7 @@ function CreateClient() {
                                     </div>
                                     <div className="mb-5 ">
                                         <label htmlFor="op" className="font-medium text-900">
-                                        Observation client
+                                        Observation fournisseur
                                         </label>
                                         <InputTextarea id="op" type="text" rows={2}></InputTextarea>
                                     </div>
