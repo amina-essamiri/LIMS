@@ -35,7 +35,7 @@ const AppMenu = () => {
                 {
                     label: 'Liste des devis',
                     icon: 'pi pi-fw pi-wallet',
-                    // to: '/clients/list'
+                    to: '/Devis/list'
                 },
                 {
                     label: 'Ajouter un devis',

@@ -95,7 +95,7 @@ Login.getLayout = function getLayout(page) {
     return (
         <React.Fragment>
             {page}
-            <AppConfig minimal />
+            {/* <AppConfig minimal /> */}
         </React.Fragment>
     );
 };
