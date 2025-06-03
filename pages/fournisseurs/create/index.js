@@ -10,12 +10,18 @@ import React, { useState, useRef, useEffect } from 'react';
 function CreateClient() {
     const toast = useRef(null);
     const router = useRouter();
-    const [selectedCountry, setSelectedCountry] = useState(null);
+    const [selectedVille, setSelectedVille] = useState(null);
     const [dropdownValue, setDropdownValue] = useState(null);
     const [dropdownValue1, setDropdownValue1] = useState(null);
     const [dropdownValue2, setDropdownValue2] = useState(null);
     const [value, setValue] = useState('');
     const [checked, setChecked] = useState(true);
+    // State
+    const [nom, setNom] = useState('');
+    const [email, setEmail] = useState('');
+    const [telephone, setTelephone] = useState('');
+    const [ville, setVille] = useState(null);
+    const [touched, setTouched] = useState({});
 
     const cities = [
         { name: 'Casablanca' },
@@ -77,14 +83,14 @@ function CreateClient() {
         { name: 'Marrakech' },
     ];
     const close = () => router.push(`/fournisseurs/list`);
-    const countryOptionTemplate = (option) => {
+    const villeOptionTemplate = (option) => {
         return (
             <div className="flex align-items-center">
                 <div>{option.name}</div>
             </div>
         );
     };
-    const selectedCountryTemplate = (option, props) => {
+    const selectedVilleTemplate = (option, props) => {
         if (option) {
             return (
                 <div className="flex align-items-center">
@@ -141,6 +147,53 @@ function CreateClient() {
         marginTop: '15px',
         marginBottom: '15px',
     };
+     // Validation regex
+    const validations = {
+        nom: /^[A-Za-zÀ-ÿ\s\-.]+$/,
+        email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        telephone: /^\+?\d+$/
+    };
+
+    // Error checks
+    const errors = {
+        nom: !nom 
+        ? "Champ requis" 
+        : !validations.nom.test(nom) 
+            ? "Format nom invalide" 
+            : "",
+        email: !email 
+        ? "Champ requis" 
+        : !validations.email.test(email) 
+            ? "Format email invalide" 
+            : "",
+        telephone: !telephone 
+        ? "Champ requis" 
+        : !validations.telephone.test(telephone) 
+            ? "Format telephone invalide" 
+            : "",
+        ville: !ville,
+    };
+
+    const handleSubmit = () => {
+        const newTouched = {
+            nom: true,
+            email: true,
+            telephone: true,
+
+            ville: true
+        };
+        setTouched(newTouched);
+
+        if (Object.values(errors).every(v => v === false)) {
+            toast.current.show({
+                severity: 'success',
+                summary: 'Succès',
+                detail: 'Fournisseur créé avec succès',
+                life: 3000
+            });
+            // Add your submit logic here
+        }
+    };
 
     return (
         <div className="card">
@@ -155,17 +208,41 @@ function CreateClient() {
                                 <div className="p-3">
                                     <span className="p-input-icon-left">
                                         <i className="pi pi-user" />
-                                        <InputText type="text" placeholder="Nom" />
+                                        <InputText 
+                                        value={nom}
+                                        onChange={(e) => setNom(e.target.value)}
+                                        placeholder='Nom *'
+                                        onBlur={() => setTouched({...touched, nom: true})}
+                                        className={touched.nom && errors.nom ? 'p-invalid' : ''}
+                                    />
+                                    {touched.nom && errors.nom && 
+                                        <small className="p-error">{errors.nom}</small>}
                                     </span>
                                     <br />
                                     <span className="p-input-icon-left">
                                         <i className="pi pi-phone" />
-                                        <InputText type="text" placeholder="Numéro de téléphone" />
+                                        <InputText 
+                                        value={telephone}
+                                        onChange={(e) => setTelephone(e.target.value)}
+                                        placeholder='Téléphone *'
+                                        onBlur={() => setTouched({...touched, telephone: true})}
+                                        className={touched.telephone && errors.telephone ? 'p-invalid' : ''}
+                                    />
+                                    {touched.telephone && errors.telephone && 
+                                        <small className="p-error">{errors.telephone}</small>}
                                     </span>
                                     <br />
                                     <span className="p-input-icon-left">
                                         <i className="pi pi-at" />
-                                        <InputText type="text" placeholder="Courrier électronique" />
+                                        <InputText 
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            placeholder='Email *'
+                                            onBlur={() => setTouched({...touched, email: true})}
+                                            className={touched.email && errors.email ? 'p-invalid' : ''}
+                                        />
+                                        {touched.email && errors.email && 
+                                            <small className="p-error">{errors.email}</small>}
                                     </span>
                                     <br />
         
@@ -186,18 +263,21 @@ function CreateClient() {
                                     </span>
                                     <br />
                                     <span className="p-input-icon-left">
-                                        <i className="pi pi-print" />
-                                        <InputText type="text" placeholder="Fax" />
-                                    </span>
-                                    <br />
-                                    <span className="p-input-icon-left">
-                                        <Dropdown value={selectedCountry} onChange={(e) => setSelectedCountry(e.value)} options={cities} optionLabel="name" placeholder="Selectionner une ville" 
-                                        filter valueTemplate={selectedCountryTemplate} itemTemplate={countryOptionTemplate}  />
+                                        <Dropdown 
+                                            value={ville}
+                                            onChange={(e) => setVille(e.value)}
+                                            options={cities}
+                                            optionLabel="name"
+                                            filter 
+                                            placeholder="Sélectionner une ville *"
+                                            valueTemplate={selectedVilleTemplate}
+                                            itemTemplate={villeOptionTemplate}
+                                            className={touched.ville && errors.ville ? 'p-invalid' : ''}
+                                            onBlur={() => setTouched({...touched, ville: true})}
+                                        />
+                                        {touched.ville && errors.ville && 
+                                            <small className="p-error">Ville requise</small>}
                                         
-                                    </span>
-                                    <br />
-                                    <span className="p-input-icon-left">
-                                        <Dropdown value={dropdownValue1} onChange={(e) => setDropdownValue1(e.value)} options={dropdownValues1} optionLabel="name" placeholder="Secteurs d'activité" />
                                     </span>
                                     <br />
                                     <div className="mb-4">
@@ -277,7 +357,13 @@ function CreateClient() {
                             {/* Button Section */}
                             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginTop: '50px' }}>
                                 <Button className="p-button-danger p-button-outlined p-3" label="Annuler" onClick={() => close()} icon="pi pi-fw pi-times" style={{ maxWidth: '200px' }} />
-                                <Button className="p-button-primary p-3" label="Enregistrer" icon="pi pi-fw pi-save" style={{ maxWidth: '200px' }} />
+                                <Button 
+                                                                    className="p-button-primary p-3" 
+                                                                    label="Enregistrer" 
+                                                                    icon="pi pi-fw pi-save" 
+                                                                    style={{ maxWidth: '200px' }}
+                                                                    onClick={handleSubmit}
+                                                            />
                             </div>
                         </div>
                     </div>

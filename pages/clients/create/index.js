@@ -9,12 +9,20 @@ import React, { useState, useRef, useEffect } from 'react';
 function CreateClient() {
     const toast = useRef(null);
     const router = useRouter();
-    const [selectedCountry, setSelectedCountry] = useState(null);
     const [dropdownValue, setDropdownValue] = useState(null);
     const [dropdownValue1, setDropdownValue1] = useState(null);
     const [dropdownValue2, setDropdownValue2] = useState(null);
     const [value, setValue] = useState('');
     const [checked, setChecked] = useState(true);
+    // State
+    const [nom, setNom] = useState('');
+    const [email, setEmail] = useState('');
+    const [telephone, setTelephone] = useState('');
+    const [fax, setFax] = useState('');
+    const [typeClient, setTypeClient] = useState(null);
+    const [ville, setVille] = useState(null);
+    const [ice, setIce] = useState('');
+    const [touched, setTouched] = useState({});
 
     const cities = [
         { name: 'Casablanca' },
@@ -74,12 +82,20 @@ function CreateClient() {
         { name: 'Ben Guerir' },
         { name: 'Settat' },
         { name: 'Marrakech' },
-        { name: 'Casablanca' }
     ];
     const close = () => router.push(`/clients/list`);
-
+        const selectedVilleTemplate = (option, props) => {
+        if (option) {
+            return (
+                <div className="flex align-items-center">
+                    <div>{option.name}</div>
+                </div>
+            );
+        }
+        return <span>{props.placeholder}</span>;
+    };
     
-    const countryOptionTemplate = (option) => {
+    const villeOptionTemplate = (option) => {
         return (
             <div className="flex align-items-center">
                 <div>{option.name}</div>
@@ -148,6 +164,67 @@ function CreateClient() {
         marginTop: '15px',
         marginBottom: '15px',
     };
+    // Validation regex
+    const validations = {
+        nom: /^[A-Za-zÀ-ÿ\s\-.]+$/,
+        email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        telephone: /^\+?\d+$/,
+        fax: /^\+?\d+$/,
+    };
+
+    const isICERequired = typeClient && 
+        ['Entreprise', 'Administration', 'Laboratoire'].includes(typeClient.name);
+
+    const errors = {
+
+        nom: !nom 
+        ? "Champ requis" 
+        : !validations.nom.test(nom) 
+            ? "Format nom invalide" 
+            : "",
+        email: !email 
+        ? "Champ requis" 
+        : !validations.email.test(email) 
+            ? "Format email invalide" 
+            : "",
+        telephone: !telephone 
+        ? "Champ requis" 
+        : !validations.telephone.test(telephone) 
+            ? "Format telephone invalide" 
+            : "",
+        fax: !fax 
+        ? "Champ requis" 
+        : !validations.fax.test(fax) 
+            ? "Format fax invalide" 
+            : "",
+        typeClient: !typeClient,
+        ville: !ville,
+        ice: isICERequired && !ice // ICE required only for certain client types
+    };
+
+
+    const handleSubmit = () => {
+        const newTouched = {
+            nom: true,
+            email: true,
+            telephone: true,
+            typeClient: true,
+            ville: true,
+            fax: true,
+            ice: true // Add ICE to touched
+        };
+        setTouched(newTouched);
+
+        if (Object.values(errors).every(v => v === false)) {
+            toast.current.show({
+                severity: 'success',
+                summary: 'Succès',
+                detail: 'Client créé avec succès',
+                life: 3000
+            });
+            // Add your submit logic here
+        }
+    };
 
     return (
         <div className="card">
@@ -160,19 +237,56 @@ function CreateClient() {
                             <div className="border-1 surface-border border-round p-fluid mb-4">
                                 <span className="text-900 font-bold block border-bottom-1 surface-border p-3">Informations personnelles</span>
                                 <div className="p-3">
+                                    <Dropdown 
+                                        value={typeClient}
+                                        onChange={(e) => setTypeClient(e.value)}
+                                        options={dropdownValues}
+                                        optionLabel="name"
+                                        placeholder="Type Client *"
+                                        className={touched.typeClient && errors.typeClient ? 'p-invalid' : ''}
+                                        onBlur={() => setTouched({...touched, typeClient: true})}
+                                    />
+                                    {touched.typeClient && errors.typeClient && 
+                                        <small className="p-error">Type client requis</small>
+                                    }
+                                    <br />
                                     <span className="p-input-icon-left">
                                         <i className="pi pi-user" />
-                                        <InputText type="text" placeholder="Nom" />
+                                        <InputText 
+                                        value={nom}
+                                        onChange={(e) => setNom(e.target.value)}
+                                        placeholder='Nom *'
+                                        onBlur={() => setTouched({...touched, nom: true})}
+                                        className={touched.nom && errors.nom ? 'p-invalid' : ''}
+                                    />
+                                    {touched.nom && errors.nom && 
+                                        <small className="p-error">{errors.nom}</small>}
                                     </span>
                                     <br />
                                     <span className="p-input-icon-left">
                                         <i className="pi pi-phone" />
-                                        <InputText type="text" placeholder="Numéro de téléphone" />
+                                        <InputText 
+                                        value={telephone}
+                                        onChange={(e) => setTelephone(e.target.value)}
+                                        placeholder='Téléphone *'
+                                        onBlur={() => setTouched({...touched, telephone: true})}
+                                        className={touched.telephone && errors.telephone ? 'p-invalid' : ''}
+                                    />
+                                    {touched.telephone && errors.telephone && 
+                                        <small className="p-error">{errors.telephone}</small>}
                                     </span>
                                     <br />
                                     <span className="p-input-icon-left">
                                         <i className="pi pi-at" />
-                                        <InputText type="text" placeholder="Courrier électronique" />
+                                        <InputText 
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            placeholder='Email *'
+                                            onBlur={() => setTouched({...touched, email: true})}
+                                            className={touched.email && errors.email ? 'p-invalid' : ''}
+                                        />
+                                        {touched.email && errors.email && 
+                                            <small className="p-error">{errors.email}</small>}
                                     </span>
                                     <br />
         
@@ -193,17 +307,34 @@ function CreateClient() {
                                     </span>
                                     <br />
                                     <span className="p-input-icon-left">
-                                        <i className="pi pi-print" />
-                                        <InputText type="text" placeholder="Fax" />
+                                        <i className="pi pi-phone" />
+                                        <InputText 
+                                            value={fax}
+                                            onChange={(e) => setFax(e.target.value)}
+                                            placeholder='Fax '
+                                            onBlur={() => setTouched({...touched, fax: true})}
+                                            className={touched.fax && errors.fax ? 'p-invalid' : ''}
+                                        />
+                                        {touched.fax && errors.fax && 
+                                            <small className="p-error">{errors.fax}</small>
+                                        }
                                     </span>
                                     <br />
                                     <span className="p-input-icon-left">
-                                        <Dropdown value={dropdownValue} onChange={(e) => setDropdownValue(e.value)} options={dropdownValues} optionLabel="name" placeholder="Type Client" />
-                                    </span>
-                                    <br />
-                                    <span className="p-input-icon-left">
-                                        <Dropdown value={selectedCountry} onChange={(e) => setSelectedCountry(e.value)} options={cities} optionLabel="name" placeholder="Selectionner une ville" 
-                                        filter valueTemplate={selectedCountryTemplate} itemTemplate={countryOptionTemplate}  />
+                                        <Dropdown 
+                                            value={ville}
+                                            onChange={(e) => setVille(e.value)}
+                                            options={cities}
+                                            optionLabel="name"
+                                            filter 
+                                            placeholder="Sélectionner une ville *"
+                                            valueTemplate={selectedVilleTemplate}
+                                            itemTemplate={villeOptionTemplate}
+                                            className={touched.ville && errors.ville ? 'p-invalid' : ''}
+                                            onBlur={() => setTouched({...touched, ville: true})}
+                                        />
+                                        {touched.ville && errors.ville && 
+                                            <small className="p-error">Ville requise</small>}
                                         
                                     </span>
                                     <br />
@@ -239,7 +370,19 @@ function CreateClient() {
                                     <div className="mb-4">
                                         <span className="p-input-icon-left">
                                             <i className="pi pi-id-card" />
-                                            <InputText type="text" placeholder="Identifiant Commun de l'Entreprise" />
+                                            <InputText 
+                                                type="text" 
+                                                placeholder="Identifiant Commun de l'Entreprise" 
+                                                value={ice}
+                                                onChange={(e) => setIce(e.target.value)}
+                                                onBlur={() => setTouched({...touched, ice: true})}
+                                                className={touched.ice && errors.ice ? 'p-invalid' : ''}
+                                                required={isICERequired}
+                                                disabled={!isICERequired}
+                                            />
+                                            {isICERequired && touched.ice && errors.ice && 
+                                                <small className="p-error">ICE requis</small>
+                                            }
                                         </span>
                                     </div>
                                     <div className="mb-4 ">
@@ -284,7 +427,13 @@ function CreateClient() {
                             {/* Button Section */}
                             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginTop: '50px' }}>
                                 <Button className="p-button-danger p-button-outlined p-3" label="Annuler" onClick={() => close()} icon="pi pi-fw pi-times" style={{ maxWidth: '200px' }} />
-                                <Button className="p-button-primary p-3" label="Enregistrer" icon="pi pi-fw pi-save" style={{ maxWidth: '200px' }} />
+                                <Button 
+                                    className="p-button-primary p-3" 
+                                    label="Enregistrer" 
+                                    icon="pi pi-fw pi-save" 
+                                    style={{ maxWidth: '200px' }}
+                                    onClick={handleSubmit}
+                            />
                             </div>
                         </div>
                     </div>

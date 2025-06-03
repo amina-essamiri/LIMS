@@ -76,10 +76,17 @@ function List() {
         setMatrixDialog(false);
     };
 
-    const deleteMatrix = () => {
-        setDeleteMatrixDialog(false);
-        toast.current.show({ severity: 'success', summary: 'Succès', detail: 'Matrice supprimée', life: 3000 });
-    };
+   // Corrigez la fonction de suppression
+const deleteMatrix = () => {
+    setMatrices(matrices.filter(m => m.id !== matrix.id));
+    setDeleteMatrixDialog(false);
+    toast.current.show({ 
+        severity: 'success', 
+        summary: 'Succès', 
+        detail: 'Matrice supprimée', 
+        life: 3000 
+    });
+};
 
     const confirmDeleteMatrix = (matrix) => {
         setMatrix(matrix);
@@ -104,13 +111,52 @@ function List() {
             </div>
         );
     };
+    // Ajoutez cette fonction dans le composant
+const saveMatrix = () => {
+    if (!matrix.name.trim()) {
+        toast.current.show({ 
+            severity: 'warn', 
+            summary: 'Attention', 
+            detail: 'Le nom de la matrice est requis', 
+            life: 3000 
+        });
+        return;
+    }
 
-    const matrixDialogFooter = (
-        <>
-            <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-            <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" />
-        </>
-    );
+    if (matrix.id) {
+        // Modification
+        setMatrices(matrices.map(m => 
+            m.id === matrix.id ? { ...m, name: matrix.name } : m
+        ));
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Matrice modifiée', 
+            life: 3000 
+        });
+    } else {
+        // Création
+        const maxId = matrices.length > 0 ? Math.max(...matrices.map(m => m.id)) : 0;
+        const newMatrix = { id: maxId + 1, name: matrix.name };
+        setMatrices([...matrices, newMatrix]);
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Matrice ajoutée', 
+            life: 3000 
+        });
+    }
+    setMatrixDialog(false);
+    setMatrix({ id: null, name: '' });
+};
+
+// Modifiez le footer du dialog
+const matrixDialogFooter = (
+    <>
+        <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+        <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" onClick={saveMatrix} />
+    </>
+);
 
     const deleteMatrixDialogFooter = (
         <>

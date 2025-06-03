@@ -84,13 +84,34 @@
     const onGlobalFilterChange = (e) => {
         setGlobalFilter(e.target.value);
     };
+    const savePoste = () => {
+    if (!poste.name.trim()) {
+        toast.current.show({ severity: 'warn', summary: 'Attention', detail: 'Le nom du poste est requis', life: 3000 });
+        return;
+    }
 
-    const posteDialogFooter = (
-        <>
+    if (poste.id) {
+        // Modification
+        setPostes(postes.map(p => (p.id === poste.id ? { ...p, name: poste.name } : p)));
+        toast.current.show({ severity: 'success', summary: 'Succès', detail: 'Poste modifié', life: 3000 });
+    } else {
+        // Création
+        const maxId = postes.length > 0 ? Math.max(...postes.map(p => p.id)) : 0;
+        const newPoste = { id: maxId + 1, name: poste.name };
+        setPostes([...postes, newPoste]);
+        toast.current.show({ severity: 'success', summary: 'Succès', detail: 'Poste ajouté', life: 3000 });
+    }
+    setDialogVisible(false);
+    setPoste({ id: null, name: '' });
+};
+
+const posteDialogFooter = (
+    <>
         <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-        <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" />
-        </>
-    );
+        <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" onClick={savePoste} />
+    </>
+);
+
 
     const deletePosteDialogFooter = (
         <>
@@ -119,6 +140,8 @@
     );
 
     const posteTemplate = (rowData) => <span><i className="pi pi-briefcase" style={{ color: 'var(--primary-color)' }} />&nbsp;&nbsp;{rowData.name}</span>;
+    
+
 
     return (
         <div className="card">

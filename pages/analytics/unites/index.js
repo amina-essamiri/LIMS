@@ -87,10 +87,17 @@ function List() {
         setUnitDialog(false);
     };
 
-    const deleteUnit = () => {
-        setDeleteUnitDialog(false);
-        toast.current.show({ severity: 'success', summary: 'Succès', detail: 'Unité supprimée', life: 3000 });
-    };
+// Corrigez la fonction de suppression
+const deleteUnit = () => {
+    setUnits(units.filter(u => u.id !== unit.id));
+    setDeleteUnitDialog(false);
+    toast.current.show({ 
+        severity: 'success', 
+        summary: 'Succès', 
+        detail: 'Unité supprimée', 
+        life: 3000 
+    });
+};
 
     const confirmDeleteUnit = (unit) => {
         setUnit(unit);
@@ -115,14 +122,52 @@ function List() {
             </div>
         );
     };
+    // Ajoutez cette fonction dans le composant
+const saveUnit = () => {
+    if (!unit.name.trim()) {
+        toast.current.show({ 
+            severity: 'warn', 
+            summary: 'Attention', 
+            detail: 'Le nom de l\'unité est requis', 
+            life: 3000 
+        });
+        return;
+    }
 
-    const unitDialogFooter = (
-        <>
-            <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-            <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" />
-        </>
-    );
+    if (unit.id) {
+        // Modification
+        setUnits(units.map(u => 
+            u.id === unit.id ? { ...u, name: unit.name } : u
+        ));
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Unité modifiée', 
+            life: 3000 
+        });
+    } else {
+        // Création
+        const maxId = units.length > 0 ? Math.max(...units.map(u => u.id)) : 0;
+        const newUnit = { id: maxId + 1, name: unit.name };
+        setUnits([...units, newUnit]);
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Unité ajoutée', 
+            life: 3000 
+        });
+    }
+    setUnitDialog(false);
+    setUnit({ id: null, name: '' });
+};
 
+// Modifiez le footer du dialog
+const unitDialogFooter = (
+    <>
+        <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+        <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" onClick={saveUnit} />
+    </>
+);
     const deleteUnitDialogFooter = (
         <>
             <Button label="Non" icon="pi pi-times" className="p-button-text" onClick={() => setDeleteUnitDialog(false)} />

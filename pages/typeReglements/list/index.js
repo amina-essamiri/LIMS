@@ -74,10 +74,17 @@ function List() {
         setPaymentTypeDialog(false);
     };
 
-    const deletePaymentType = () => {
-        setDeletePaymentTypeDialog(false);
-        toast.current.show({ severity: 'success', summary: 'Succès', detail: 'Type de règlement supprimé', life: 3000 });
-    };
+const deletePaymentType = () => {
+    setPaymentTypes(paymentTypes.filter(pt => pt.id !== paymentType.id));
+    setDeletePaymentTypeDialog(false);
+    toast.current.show({ 
+        severity: 'success', 
+        summary: 'Succès', 
+        detail: 'Type supprimé', 
+        life: 3000 
+    });
+};
+
 
     const confirmDeletePaymentType = (paymentType) => {
         setPaymentType(paymentType);
@@ -102,13 +109,51 @@ function List() {
             </div>
         );
     };
+    const savePaymentType = () => {
+    if (!paymentType.name.trim()) {
+        toast.current.show({ 
+            severity: 'warn', 
+            summary: 'Attention', 
+            detail: 'Le nom du type est requis', 
+            life: 3000 
+        });
+        return;
+    }
 
-    const paymentTypeDialogFooter = (
-        <>
-            <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-            <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" />
-        </>
-    );
+    if (paymentType.id) {
+        // Modification
+        setPaymentTypes(paymentTypes.map(pt => 
+            pt.id === paymentType.id ? { ...pt, name: paymentType.name } : pt
+        ));
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Type modifié', 
+            life: 3000 
+        });
+    } else {
+        // Création
+        const maxId = paymentTypes.length > 0 ? Math.max(...paymentTypes.map(pt => pt.id)) : 0;
+        const newPaymentType = { id: maxId + 1, name: paymentType.name };
+        setPaymentTypes([...paymentTypes, newPaymentType]);
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Type ajouté', 
+            life: 3000 
+        });
+    }
+    setPaymentTypeDialog(false);
+    setPaymentType({ id: null, name: '' });
+};
+
+const paymentTypeDialogFooter = (
+    <>
+        <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+        <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" onClick={savePaymentType} />
+    </>
+);
+
 
     const deletePaymentTypeDialogFooter = (
         <>

@@ -27,7 +27,9 @@ const AppTopbar = forwardRef((props, ref) => {
         {
             label: 'Déconnexion',
             icon: 'pi pi-power-off',
-            // Add logout logic here if necessary
+            command: () => {
+                router.push('/auth/login');
+            }
         }
     ];
 

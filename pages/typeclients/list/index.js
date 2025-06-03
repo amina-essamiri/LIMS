@@ -81,12 +81,52 @@ function List() {
     setGlobalFilter(e.target.value);
   };
 
-  const clientDialogFooter = (
+  const saveClient = () => {
+    if (!client.name.trim()) {
+        toast.current.show({ 
+            severity: 'warn', 
+            summary: 'Attention', 
+            detail: 'Le nom du type est requis', 
+            life: 3000 
+        });
+        return;
+    }
+
+    if (client.id) {
+        // Modification
+        setClients(clients.map(c => 
+            c.id === client.id ? { ...c, name: client.name } : c
+        ));
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Type modifié', 
+            life: 3000 
+        });
+    } else {
+        // Création
+        const maxId = clients.length > 0 ? Math.max(...clients.map(c => c.id)) : 0;
+        const newClient = { id: maxId + 1, name: client.name };
+        setClients([...clients, newClient]);
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Type ajouté', 
+            life: 3000 
+        });
+    }
+    setDialogVisible(false);
+    setClient({ id: null, name: '' });
+};
+
+const clientDialogFooter = (
     <>
-      <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-      <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" />
+        <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+        <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" onClick={saveClient} />
     </>
-  );
+);
+
+
 
   const deleteDialogFooter = (
     <>
@@ -99,7 +139,7 @@ function List() {
     <div className="flex justify-content-between">
       <span className="p-input-icon-left">
         <i className="pi pi-search" />
-        <InputText value={globalFilter} onChange={onGlobalFilterChange} placeholder="Rechercher type de client" />
+        <InputText value={globalFilter} onChange={onGlobalFilterChange} placeholder="Rechercher type client" />
       </span>
       <Button
         type="button"

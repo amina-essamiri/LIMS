@@ -132,7 +132,8 @@ const AppConfig = (props) => {
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
+                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full"
+                                                    onClick={() => handleNavigation('/analytics/parametres')}>
                                                         <i className="pi pi-link mr-2" style={{color: 'var(--primary-color)'}} ></i>
                                                         <span className="font-medium">Paramètres</span>
                                                         <Ripple />
@@ -140,35 +141,39 @@ const AppConfig = (props) => {
                                                 </li>
                                                 <li>
                                                     <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full"
-                                                    >
+                                                    onClick={() => handleNavigation('/analytics/methodeAnalyse')}>
                                                         <i className="pi pi-fw pi-stop mr-2" style={{color: 'var(--primary-color)'}} ></i>
                                                         <span className="font-medium">Méthode d’analyse</span>
                                                         <Ripple />
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
+                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full"
+                                                    onClick={() => handleNavigation('/analytics/cadreAnalyse')}>
                                                         <i className="pi pi-fw pi-ticket mr-2" style={{color: 'var(--primary-color)'}} ></i>
                                                         <span className="font-medium">Cadre d’analyse</span>
                                                         <Ripple />
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
+                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full"
+                                                    onClick={() => handleNavigation('/analytics/reglementations')}>
                                                         <i className="pi pi-fw pi-sliders-h mr-2" style={{color: 'var(--primary-color)'}} ></i>
                                                         <span className="font-medium">Règlementations</span>
                                                         <Ripple />
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
+                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full"
+                                                    onClick={() => handleNavigation('/analytics/analyse')}>
                                                         <i className="pi pi-fw pi-tags mr-2" style={{color: 'var(--primary-color)'}} ></i>
                                                         <span className="font-medium">Analyses</span>
                                                         <Ripple />
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
+                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full"
+                                                    onClick={() => handleNavigation('/analytics/produits')}>
                                                         <i className="pi pi-fw pi-box mr-2" style={{color: 'var(--primary-color)'}} ></i>
                                                         <span className="font-medium">Produits</span>
                                                         <Ripple />
@@ -215,7 +220,8 @@ const AppConfig = (props) => {
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full">
+                                                    <a className="p-ripple flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors w-full"
+                                                    onClick={()=> handleNavigation('/analytics/moyennesPrelevement')}>
                                                         <i className="pi pi-fw pi-clone mr-2" style={{color: 'var(--primary-color)'}} ></i>
                                                         <span className="font-medium">Moyenne de Prélèvement</span>
                                                         <Ripple />

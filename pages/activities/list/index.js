@@ -87,13 +87,52 @@ function List() {
   const onGlobalFilterChange = (e) => {
     setGlobalFilter(e.target.value);
   };
+  const saveSecteur = () => {
+    if (!secteur.name.trim()) {
+        toast.current.show({ 
+            severity: 'warn', 
+            summary: 'Attention', 
+            detail: 'Le nom du secteur est requis', 
+            life: 3000 
+        });
+        return;
+    }
 
-  const secteurDialogFooter = (
+    if (secteur.id) {
+        // Modification
+        setSecteurs(secteurs.map(s => 
+            s.id === secteur.id ? { ...s, name: secteur.name } : s
+        ));
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Secteur d\'activité modifié', 
+            life: 3000 
+        });
+    } else {
+        // Création
+        const maxId = secteurs.length > 0 ? Math.max(...secteurs.map(s => s.id)) : 0;
+        const newSecteur = { id: maxId + 1, name: secteur.name };
+        setSecteurs([...secteurs, newSecteur]);
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Secteur d\'activité ajouté', 
+            life: 3000 
+        });
+    }
+    setDialogVisible(false);
+    setSecteur({ id: null, name: '' });
+};
+
+
+const secteurDialogFooter = (
     <>
-      <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-      <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" />
+        <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+        <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" onClick={saveSecteur} />
     </>
-  );
+);
+
 
   const deleteSecteurDialogFooter = (
     <>

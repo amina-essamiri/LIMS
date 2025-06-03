@@ -38,7 +38,7 @@ function List() {
     const [filters, setFilters] = useState(null);
     const [loading, setLoading] = useState(true);
     const toast = useRef(null);
-    const dt = useRef(null);
+    const dt = useRef(null)
 
     useEffect(() => {
         ConditionReglementService.getConditions()
@@ -77,12 +77,18 @@ function List() {
     const hideDialog = () => {
         setConditionDialog(false);
     };
-
-    const deleteCondition = () => {
-        setDeleteConditionDialog(false);
-        toast.current.show({ severity: 'success', summary: 'Succès', detail: 'Condition de règlement supprimée', life: 3000 });
-    };
-
+    
+// Corrigez la fonction de suppression
+const deleteCondition = () => {
+    setConditions(conditions.filter(c => c.id !== condition.id));
+    setDeleteConditionDialog(false);
+    toast.current.show({ 
+        severity: 'success', 
+        summary: 'Succès', 
+        detail: 'Condition supprimée', 
+        life: 3000 
+    });
+};
     const confirmDeleteCondition = (condition) => {
         setCondition(condition);
         setDeleteConditionDialog(true);
@@ -106,14 +112,51 @@ function List() {
             </div>
         );
     };
+    // Ajoutez cette fonction dans le composant
+const saveCondition = () => {
+    if (!condition.name.trim()) {
+        toast.current.show({ 
+            severity: 'warn', 
+            summary: 'Attention', 
+            detail: 'Le nom de la condition est requis', 
+            life: 3000 
+        });
+        return;
+    }
 
-    const conditionDialogFooter = (
-        <>
-            <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-            <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" />
-        </>
-    );
-
+    if (condition.id) {
+        // Modification
+        setConditions(conditions.map(c => 
+            c.id === condition.id ? { ...c, name: condition.name } : c
+        ));
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Condition modifiée', 
+            life: 3000 
+        });
+    } else {
+        // Création
+        const maxId = conditions.length > 0 ? Math.max(...conditions.map(c => c.id)) : 0;
+        const newCondition = { id: maxId + 1, name: condition.name };
+        setConditions([...conditions, newCondition]);
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Condition ajoutée', 
+            life: 3000 
+        });
+    }
+    setConditionDialog(false);
+    setCondition({ id: null, name: '' });
+};
+// Modifiez le footer du dialog
+const conditionDialogFooter = (
+    <>
+        <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+        <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" onClick={saveCondition} />
+    </>
+);
     const deleteConditionDialogFooter = (
         <>
             <Button label="Non" icon="pi pi-times" className="p-button-text" onClick={() => setDeleteConditionDialog(false)} />

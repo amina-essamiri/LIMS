@@ -83,10 +83,17 @@ function List() {
         setLieuDialog(false);
     };
 
-    const deleteLieu = () => {
-        setDeleteLieuDialog(false);
-        toast.current.show({ severity: 'success', summary: 'Succès', detail: 'Lieu de prélèvement supprimé', life: 3000 });
-    };
+// Corrigez la fonction de suppression
+const deleteLieu = () => {
+    setLieus(lieus.filter(l => l.id !== lieu.id));
+    setDeleteLieuDialog(false);
+    toast.current.show({ 
+        severity: 'success', 
+        summary: 'Succès', 
+        detail: 'Lieu supprimé', 
+        life: 3000 
+    });
+};
 
     const confirmDeleteLieu = (lieu) => {
         setLieu(lieu);
@@ -110,14 +117,53 @@ function List() {
                 <Button type="button" rounded outlined icon="pi pi-plus" tooltip="Ajouter" tooltipOptions={{ position: 'top' }} className="p-button-outlined" onClick={openNewLieuDialog} />
             </div>
         );
-    };
+    };// Ajoutez cette fonction dans le composant
+const saveLieu = () => {
+    if (!lieu.name.trim()) {
+        toast.current.show({ 
+            severity: 'warn', 
+            summary: 'Attention', 
+            detail: 'Le nom du lieu est requis', 
+            life: 3000 
+        });
+        return;
+    }
 
-    const lieuDialogFooter = (
-        <>
-            <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-            <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" />
-        </>
-    );
+    if (lieu.id) {
+        // Modification
+        setLieus(lieus.map(l => 
+            l.id === lieu.id ? { ...l, name: lieu.name } : l
+        ));
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Lieu modifié', 
+            life: 3000 
+        });
+    } else {
+        // Création
+        const maxId = lieus.length > 0 ? Math.max(...lieus.map(l => l.id)) : 0;
+        const newLieu = { id: maxId + 1, name: lieu.name };
+        setLieus([...lieus, newLieu]);
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Lieu ajouté', 
+            life: 3000 
+        });
+    }
+    setLieuDialog(false);
+    setLieu({ id: null, name: '' });
+};
+
+
+// Modifiez le footer du dialog
+const lieuDialogFooter = (
+    <>
+        <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+        <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" onClick={saveLieu} />
+    </>
+);
 
     const deleteLieuDialogFooter = (
         <>

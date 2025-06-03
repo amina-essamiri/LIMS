@@ -80,8 +80,7 @@ function Login() {
                                 content={content}
                             /> */}
                             {/* <br/> */}
-                             <a className="text-600 cursor-pointer hover:text-primary cursor-pointer ml-auto transition-colors transition-duration-300" onClick={() => router.push('/auth/forgotpassword')}><i className='pi pi-exclamation-triangle'></i>&nbsp;Réinitialiser le mot de passe?</a>
-                            
+                            <a className="text-600 cursor-pointer hover:text-primary cursor-pointer ml-auto transition-colors transition-duration-300" onClick={() => router.push('/auth/forgotpassword')}><i className='pi pi-exclamation-triangle'></i>&nbsp;Réinitialiser le mot de passe?</a>
                         </div>
                         <Button label="Se connecter" className="w-full" onClick={() => router.push('/')}></Button>
                     </div>

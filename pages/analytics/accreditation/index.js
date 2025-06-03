@@ -74,12 +74,17 @@ function List() {
     const hideDialog = () => {
         setAccreditationDialog(false);
     };
-
-    const deleteAccreditation = () => {
-        setDeleteAccreditationDialog(false);
-        toast.current.show({ severity: 'success', summary: 'Succès', detail: 'Accréditation supprimée', life: 3000 });
-    };
-
+// Corrigez la fonction de suppression
+const deleteAccreditation = () => {
+    setAccreditations(accreditations.filter(a => a.id !== accreditation.id));
+    setDeleteAccreditationDialog(false);
+    toast.current.show({ 
+        severity: 'success', 
+        summary: 'Succès', 
+        detail: 'Accréditation supprimée', 
+        life: 3000 
+    });
+};
     const confirmDeleteAccreditation = (accreditation) => {
         setAccreditation(accreditation);
         setDeleteAccreditationDialog(true);
@@ -103,13 +108,51 @@ function List() {
             </div>
         );
     };
+    // Ajoutez cette fonction dans le composant
+const saveAccreditation = () => {
+    if (!accreditation.name.trim()) {
+        toast.current.show({ 
+            severity: 'warn', 
+            summary: 'Attention', 
+            detail: 'Le nom de l\'accréditation est requis', 
+            life: 3000 
+        });
+        return;
+    }
 
-    const accreditationDialogFooter = (
-        <>
-            <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-            <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" />
-        </>
-    );
+    if (accreditation.id) {
+        // Modification
+        setAccreditations(accreditations.map(a => 
+            a.id === accreditation.id ? { ...a, name: accreditation.name } : a
+        ));
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Accréditation modifiée', 
+            life: 3000 
+        });
+    } else {
+        // Création
+        const maxId = accreditations.length > 0 ? Math.max(...accreditations.map(a => a.id)) : 0;
+        const newAccreditation = { id: maxId + 1, name: accreditation.name };
+        setAccreditations([...accreditations, newAccreditation]);
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Accréditation ajoutée', 
+            life: 3000 
+        });
+    }
+    setAccreditationDialog(false);
+    setAccreditation({ id: null, name: '' });
+};
+// Modifiez le footer du dialog
+const accreditationDialogFooter = (
+    <>
+        <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+        <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" onClick={saveAccreditation} />
+    </>
+);
 
     const deleteAccreditationDialogFooter = (
         <>

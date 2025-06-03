@@ -73,11 +73,17 @@ function List() {
     const hideDialog = () => {
         setGroupeDialog(false);
     };
-
-    const deleteGroupe = () => {
-        setDeleteGroupeDialog(false);
-        toast.current.show({ severity: 'success', summary: 'Succès', detail: 'Groupe d\'analyse supprimé', life: 3000 });
-    };
+// Corrigez la fonction de suppression
+const deleteGroupe = () => {
+    setGroupes(groupes.filter(g => g.id !== groupe.id));
+    setDeleteGroupeDialog(false);
+    toast.current.show({ 
+        severity: 'success', 
+        summary: 'Succès', 
+        detail: 'Groupe supprimé', 
+        life: 3000 
+    });
+};
 
     const confirmDeleteGroupe = (groupe) => {
         setGroupe(groupe);
@@ -102,13 +108,52 @@ function List() {
             </div>
         );
     };
+    // Ajoutez cette fonction dans le composant
+const saveGroupe = () => {
+    if (!groupe.name.trim()) {
+        toast.current.show({ 
+            severity: 'warn', 
+            summary: 'Attention', 
+            detail: 'Le nom du groupe est requis', 
+            life: 3000 
+        });
+        return;
+    }
 
-    const groupeDialogFooter = (
-        <>
-            <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-            <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" />
-        </>
-    );
+    if (groupe.id) {
+        // Modification
+        setGroupes(groupes.map(g => 
+            g.id === groupe.id ? { ...g, name: groupe.name } : g
+        ));
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Groupe modifié', 
+            life: 3000 
+        });
+    } else {
+        // Création
+        const maxId = groupes.length > 0 ? Math.max(...groupes.map(g => g.id)) : 0;
+        const newGroupe = { id: maxId + 1, name: groupe.name };
+        setGroupes([...groupes, newGroupe]);
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Groupe ajouté', 
+            life: 3000 
+        });
+    }
+    setGroupeDialog(false);
+    setGroupe({ id: null, name: '' });
+};
+
+    // Modifiez le footer du dialog
+const groupeDialogFooter = (
+    <>
+        <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+        <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" onClick={saveGroupe} />
+    </>
+);
 
     const deleteGroupeDialogFooter = (
         <>
@@ -143,7 +188,7 @@ function List() {
             <Dialog visible={deleteGroupeDialog} style={{ width: '450px' }} header="Confirmer la suppression" modal footer={deleteGroupeDialogFooter} onHide={() => setDeleteGroupeDialog(false)}>
                 <div className="flex align-items-center justify-content-center">
                     <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem' }} />
-                    {groupe && <span>Confirmez-vous la suppression de ce groupe d&apos;analyse ?</span>}
+                    {groupe && <span>Confirmez-vous la suppression de ce groupe?</span>}
                 </div>
             </Dialog>
 

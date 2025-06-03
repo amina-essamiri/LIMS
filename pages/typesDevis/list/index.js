@@ -74,10 +74,18 @@ function List() {
         setTypeDevisDialog(false);
     };
 
-    const deleteTypeDevis = () => {
-        setDeleteTypeDevisDialog(false);
-        toast.current.show({ severity: 'success', summary: 'Succès', detail: 'Type de devis supprimé', life: 3000 });
-    };
+
+// Corrigez la fonction de suppression
+const deleteTypeDevis = () => {
+    setTypesDevis(typesDevis.filter(td => td.id !== typeDevis.id));
+    setDeleteTypeDevisDialog(false);
+    toast.current.show({ 
+        severity: 'success', 
+        summary: 'Succès', 
+        detail: 'Type supprimé', 
+        life: 3000 
+    });
+};
 
     const confirmDeleteTypeDevis = (typeDevis) => {
         setTypeDevis(typeDevis);
@@ -102,13 +110,52 @@ function List() {
             </div>
         );
     };
+    // Ajoutez cette fonction dans le composant
+const saveTypeDevis = () => {
+    if (!typeDevis.name.trim()) {
+        toast.current.show({ 
+            severity: 'warn', 
+            summary: 'Attention', 
+            detail: 'Le nom du type est requis', 
+            life: 3000 
+        });
+        return;
+    }
 
-    const typeDevisDialogFooter = (
-        <>
-            <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-            <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" />
-        </>
-    );
+    if (typeDevis.id) {
+        // Modification
+        setTypesDevis(typesDevis.map(td => 
+            td.id === typeDevis.id ? { ...td, name: typeDevis.name } : td
+        ));
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Type modifié', 
+            life: 3000 
+        });
+    } else {
+        // Création
+        const maxId = typesDevis.length > 0 ? Math.max(...typesDevis.map(td => td.id)) : 0;
+        const newType = { id: maxId + 1, name: typeDevis.name };
+        setTypesDevis([...typesDevis, newType]);
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Type ajouté', 
+            life: 3000 
+        });
+    }
+    setTypeDevisDialog(false);
+    setTypeDevis({ id: null, name: '' });
+};
+
+// Modifiez le footer du dialog
+const typeDevisDialogFooter = (
+    <>
+        <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+        <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" onClick={saveTypeDevis} />
+    </>
+);
 
     const deleteTypeDevisDialogFooter = (
         <>

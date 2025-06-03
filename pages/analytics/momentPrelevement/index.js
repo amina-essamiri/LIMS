@@ -72,11 +72,17 @@ function List() {
     const hideDialog = () => {
         setMomentDialog(false);
     };
+const deleteMoment = () => {
+    setMoments(moments.filter(m => m.id !== moment.id));
+    setDeleteMomentDialog(false);
+    toast.current.show({
+        severity: 'success',
+        summary: 'Succès',
+        detail: 'Moment de prélèvement supprimé',
+        life: 3000
+    });
+};
 
-    const deleteMoment = () => {
-        setDeleteMomentDialog(false);
-        toast.current.show({ severity: 'success', summary: 'Succès', detail: 'Moment de prélèvement supprimé', life: 3000 });
-    };
 
     const confirmDeleteMoment = (moment) => {
         setMoment(moment);
@@ -101,13 +107,52 @@ function List() {
             </div>
         );
     };
+    const saveMoment = () => {
+    if (!moment.name.trim()) {
+        toast.current.show({
+            severity: 'warn',
+            summary: 'Attention',
+            detail: 'Le nom du moment est requis',
+            life: 3000
+        });
+        return;
+    }
 
-    const momentDialogFooter = (
-        <>
-            <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-            <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" />
-        </>
-    );
+    if (moment.id) {
+        // Modification
+        setMoments(moments.map(m => 
+            m.id === moment.id ? { ...m, name: moment.name } : m
+        ));
+        toast.current.show({
+            severity: 'success',
+            summary: 'Succès',
+            detail: 'Moment modifié',
+            life: 3000
+        });
+    } else {
+        // Création
+        const maxId = moments.length > 0 ? Math.max(...moments.map(m => m.id)) : 0;
+        const newMoment = { id: maxId + 1, name: moment.name };
+        setMoments([...moments, newMoment]);
+        toast.current.show({
+            severity: 'success',
+            summary: 'Succès',
+            detail: 'Moment ajouté',
+            life: 3000
+        });
+    }
+    setMomentDialog(false);
+    setMoment({ id: null, name: '' });
+};
+
+
+const momentDialogFooter = (
+    <>
+        <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+        <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" onClick={saveMoment} />
+    </>
+);
+
 
     const deleteMomentDialogFooter = (
         <>

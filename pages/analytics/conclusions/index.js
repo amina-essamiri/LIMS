@@ -74,10 +74,18 @@ function List() {
         setConclusionDialog(false);
     };
 
-    const deleteConclusion = () => {
-        setDeleteConclusionDialog(false);
-        toast.current.show({ severity: 'success', summary: 'Succès', detail: 'Conclusion supprimée', life: 3000 });
-    };
+
+// Corrigez la fonction de suppression
+const deleteConclusion = () => {
+    setConclusions(conclusions.filter(c => c.id !== conclusion.id));
+    setDeleteConclusionDialog(false);
+    toast.current.show({ 
+        severity: 'success', 
+        summary: 'Succès', 
+        detail: 'Conclusion supprimée', 
+        life: 3000 
+    });
+};
 
     const confirmDeleteConclusion = (conclusion) => {
         setConclusion(conclusion);
@@ -102,13 +110,52 @@ function List() {
             </div>
         );
     };
+    // Ajoutez cette fonction dans le composant
+const saveConclusion = () => {
+    if (!conclusion.name.trim()) {
+        toast.current.show({ 
+            severity: 'warn', 
+            summary: 'Attention', 
+            detail: 'Le nom de la conclusion est requis', 
+            life: 3000 
+        });
+        return;
+    }
 
-    const conclusionDialogFooter = (
-        <>
-            <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-            <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" />
-        </>
-    );
+    if (conclusion.id) {
+        // Modification
+        setConclusions(conclusions.map(c => 
+            c.id === conclusion.id ? { ...c, name: conclusion.name } : c
+        ));
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Conclusion modifiée', 
+            life: 3000 
+        });
+    } else {
+        // Création
+        const maxId = conclusions.length > 0 ? Math.max(...conclusions.map(c => c.id)) : 0;
+        const newConclusion = { id: maxId + 1, name: conclusion.name };
+        setConclusions([...conclusions, newConclusion]);
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Conclusion ajoutée', 
+            life: 3000 
+        });
+    }
+    setConclusionDialog(false);
+    setConclusion({ id: null, name: '' });
+};
+
+// Modifiez le footer du dialog
+const conclusionDialogFooter = (
+    <>
+        <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+        <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" onClick={saveConclusion} />
+    </>
+);
 
     const deleteConclusionDialogFooter = (
         <>

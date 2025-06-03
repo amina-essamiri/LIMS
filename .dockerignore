@@ -1,0 +1,30 @@
+# Node modules (à ne pas copier dans l'image)
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Dossiers de build locaux (pas besoin dans l'image)
+build
+dist
+
+# Fichiers de configuration locaux et cache IDE
+.vscode
+.idea
+.DS_Store
+
+# Logs
+*.log
+
+# Environnement local
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Tests
+coverage
+jest.config.js
+
+# Autres fichiers inutiles
+*.md

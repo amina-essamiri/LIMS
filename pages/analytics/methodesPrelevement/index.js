@@ -75,10 +75,17 @@ function List() {
         setMethodDialog(false);
     };
 
-    const deleteMethod = () => {
-        setDeleteMethodDialog(false);
-        toast.current.show({ severity: 'success', summary: 'Succès', detail: 'Méthode de prélèvement supprimée', life: 3000 });
-    };
+const deleteMethod = () => {
+    setMethods(methods.filter(m => m.id !== method.id));
+    setDeleteMethodDialog(false);
+    toast.current.show({ 
+        severity: 'success', 
+        summary: 'Succès', 
+        detail: 'Méthode de prélèvement supprimée', 
+        life: 3000 
+    });
+};
+
 
     const confirmDeleteMethod = (method) => {
         setMethod(method);
@@ -97,19 +104,57 @@ function List() {
             <div className="flex flex-wrap gap-2 align-items-center justify-content-between">
                 <span className="p-input-icon-left w-full sm:w-20rem flex-order-1 sm:flex-order-0">
                     <i className="pi pi-search"></i>
-                    <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Rechercher des méthodes de prélèvement" className="w-full" />
+                    <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Rechercher des méthodes" className="w-full" />
                 </span>
                 <Button type="button" rounded outlined icon="pi pi-plus" tooltip="Ajouter" tooltipOptions={{ position: 'top' }} className="p-button-outlined" onClick={openNewMethodDialog} />
             </div>
         );
     };
+    const saveMethod = () => {
+    if (!method.name.trim()) {
+        toast.current.show({ 
+            severity: 'warn', 
+            summary: 'Attention', 
+            detail: 'Le nom de la méthode est requis', 
+            life: 3000 
+        });
+        return;
+    }
 
-    const methodDialogFooter = (
-        <>
-            <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-            <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" />
-        </>
-    );
+    if (method.id) {
+        // Modification
+        setMethods(methods.map(m => 
+            m.id === method.id ? { ...m, name: method.name } : m
+        ));
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Méthode modifiée', 
+            life: 3000 
+        });
+    } else {
+        // Création
+        const maxId = methods.length > 0 ? Math.max(...methods.map(m => m.id)) : 0;
+        const newMethod = { id: maxId + 1, name: method.name };
+        setMethods([...methods, newMethod]);
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Méthode ajoutée', 
+            life: 3000 
+        });
+    }
+    setMethodDialog(false);
+    setMethod({ id: null, name: '' });
+};
+
+const methodDialogFooter = (
+    <>
+        <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+        <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" onClick={saveMethod} />
+    </>
+);
+
 
     const deleteMethodDialogFooter = (
         <>

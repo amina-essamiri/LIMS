@@ -76,10 +76,17 @@ function List() {
         setDepartmentDialog(false);
     };
 
-    const deleteDepartment = () => {
-        setDeleteDepartmentDialog(false);
-        toast.current.show({ severity: 'success', summary: 'Succès', detail: 'Département supprimé', life: 3000 });
-    };
+// Corrigez la fonction de suppression
+const deleteDepartment = () => {
+    setDepartments(departments.filter(d => d.id !== department.id));
+    setDeleteDepartmentDialog(false);
+    toast.current.show({ 
+        severity: 'success', 
+        summary: 'Succès', 
+        detail: 'Département supprimé', 
+        life: 3000 
+    });
+};
 
     const confirmDeleteDepartment = (department) => {
         setDepartment(department);
@@ -104,13 +111,51 @@ function List() {
             </div>
         );
     };
+    // Ajoutez cette fonction dans le composant
+const saveDepartment = () => {
+    if (!department.name.trim()) {
+        toast.current.show({ 
+            severity: 'warn', 
+            summary: 'Attention', 
+            detail: 'Le nom du département est requis', 
+            life: 3000 
+        });
+        return;
+    }
 
-    const departmentDialogFooter = (
-        <>
-            <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-            <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" />
-        </>
-    );
+    if (department.id) {
+        // Modification
+        setDepartments(departments.map(d => 
+            d.id === department.id ? { ...d, name: department.name } : d
+        ));
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Département modifié', 
+            life: 3000 
+        });
+    } else {
+        // Création
+        const maxId = departments.length > 0 ? Math.max(...departments.map(d => d.id)) : 0;
+        const newDepartment = { id: maxId + 1, name: department.name };
+        setDepartments([...departments, newDepartment]);
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Département ajouté', 
+            life: 3000 
+        });
+    }
+    setDepartmentDialog(false);
+    setDepartment({ id: null, name: '' });
+};
+// Modifiez le footer du dialog
+const departmentDialogFooter = (
+    <>
+        <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+        <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" onClick={saveDepartment} />
+    </>
+);
 
     const deleteDepartmentDialogFooter = (
         <>

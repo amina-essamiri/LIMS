@@ -73,10 +73,17 @@ function List() {
         setValiditeDialog(false);
     };
 
-    const deleteValidite = () => {
-        setDeleteValiditeDialog(false);
-        toast.current.show({ severity: 'success', summary: 'Succès', detail: 'Période de validité supprimée', life: 3000 });
-    };
+// Corrigez la fonction de suppression
+const deleteValidite = () => {
+    setValidites(validites.filter(v => v.id !== validite.id));
+    setDeleteValiditeDialog(false);
+    toast.current.show({ 
+        severity: 'success', 
+        summary: 'Succès', 
+        detail: 'Période supprimée', 
+        life: 3000 
+    });
+};
 
     const confirmDeleteValidite = (validite) => {
         setValidite(validite);
@@ -101,13 +108,54 @@ function List() {
             </div>
         );
     };
+    // Ajoutez cette fonction dans le composant
+const saveValidite = () => {
+    const monthsValue = parseInt(validite.months);
+    
+    if (isNaN(monthsValue) || monthsValue < 1) {
+        toast.current.show({ 
+            severity: 'warn', 
+            summary: 'Attention', 
+            detail: 'La période doit être existante', 
+            life: 3000 
+        });
+        return;
+    }
 
-    const validiteDialogFooter = (
-        <>
-            <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-            <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" />
-        </>
-    );
+    if (validite.id) {
+        // Modification
+        setValidites(validites.map(v => 
+            v.id === validite.id ? { ...v, months: monthsValue } : v
+        ));
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Période modifiée', 
+            life: 3000 
+        });
+    } else {
+        // Création
+        const maxId = validites.length > 0 ? Math.max(...validites.map(v => v.id)) : 0;
+        const newValidite = { id: maxId + 1, months: monthsValue };
+        setValidites([...validites, newValidite]);
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Période ajoutée', 
+            life: 3000 
+        });
+    }
+    setValiditeDialog(false);
+    setValidite({ id: null, months: 3 });
+};
+
+    // Modifiez le footer du dialog
+const validiteDialogFooter = (
+    <>
+        <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+        <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" onClick={saveValidite} />
+    </>
+);
 
     const deleteValiditeDialogFooter = (
         <>

@@ -98,10 +98,18 @@ function CityList() {
         setSubmitted(false);
     };
 
-    const deleteCity = () => {
-        setCityToDelete(null);
-        toast.current.show({ severity: 'success', summary: 'Succès', detail: 'Ville supprimée', life: 3000 });
-    };
+  const deleteCity = () => {
+    setCities(cities.filter(c => c.id !== cityToDelete.id));
+    setDialogVisible(false);
+    setCityToDelete(null);
+    toast.current.show({
+        severity: 'success',
+        summary: 'Succès',
+        detail: 'Ville supprimée',
+        life: 3000
+    });
+};
+
 
     const confirmDeleteCity = (city) => {
         setCityToDelete(city);
@@ -119,6 +127,45 @@ function CityList() {
             </div>
         );
     };
+    const saveCity = () => {
+    if (!city.name.trim() || !dropdownValue) {
+        toast.current.show({
+            severity: 'warn',
+            summary: 'Attention',
+            detail: 'Le nom de la ville et la région sont requis',
+            life: 3000
+        });
+        return;
+    }
+
+    if (city.id) {
+        // Modification
+        setCities(cities.map(c => 
+            c.id === city.id ? { ...c, name: city.name, region: dropdownValue } : c
+        ));
+        toast.current.show({
+            severity: 'success',
+            summary: 'Succès',
+            detail: 'Ville modifiée',
+            life: 3000
+        });
+    } else {
+        // Création
+        const maxId = cities.length > 0 ? Math.max(...cities.map(c => c.id)) : 0;
+        const newCity = { id: maxId + 1, name: city.name, region: dropdownValue };
+        setCities([...cities, newCity]);
+        toast.current.show({
+            severity: 'success',
+            summary: 'Succès',
+            detail: 'Ville ajoutée',
+            life: 3000
+        });
+    }
+    setCityDialog(false);
+    setCity({ id: null, name: '', region: '' });
+    setDropdownValue(null);
+};
+
 
     const cityTemplate = (rowData) => (
         <span style={{ padding: '5px'}} ><i className="pi pi-map-marker" style={{ color: 'var(--primary-color)' }} /> &nbsp;&nbsp;{rowData.name}</span>
@@ -131,12 +178,13 @@ function CityList() {
         </>
     );
 
-    const cityDialogFooter = (
-        <>
-            <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-            <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" />
-        </>
-    );
+const cityDialogFooter = (
+    <>
+        <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+        <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" onClick={saveCity} />
+    </>
+);
+
 
     const deleteCityDialogFooter = (
         <>
@@ -190,7 +238,14 @@ function CityList() {
                 </div>
                 <div className="field">
                     <label htmlFor="region">Région</label>
-                    <Dropdown value={dropdownValue} onChange={(e) => setDropdownValue(e.value)} options={dropdownValues} optionLabel="name" placeholder="Sélectionner la région" />
+                    <Dropdown
+                            value={dropdownValue}
+                            onChange={(e) => setDropdownValue(e.value)}
+                            options={dropdownValues}
+                            optionLabel="name"
+                            placeholder="Sélectionner la région"
+                        />
+
                 </div>
             </Dialog>
         </div>

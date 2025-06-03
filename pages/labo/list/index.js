@@ -14,6 +14,10 @@
         const router = useRouter();
         const toast = useRef(null);
         const [value, setValue] = useState('');
+        // States for form fields
+        const [name, setName] = useState('Laboratoire QEE');
+        const [email, setEmail] = useState('contact@laboqee.ma');
+        const [phone, setPhone] = useState('+212535608017');
         const close = () => router.push(`/`);
         const cities = [
             { name: 'Casablanca' },
@@ -98,7 +102,58 @@
         useEffect(() => {
             // Placeholder for any initialization logic
         }, []);
+        const [touched, setTouched] = useState({
+        name: false,
+        email: false,
+        phone: false,
+    });
+        // Regex patterns
+    const nameRegex = /^[A-Za-zÀ-ÿ\s\-.]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^\+?\d+$/;
 
+    // Validation
+    const errors = {
+        name: !name || !nameRegex.test(name),
+        email: !email || !emailRegex.test(email),
+        phone: !phone || !phoneRegex.test(phone),
+    };
+
+    // Helper to mark all fields as touched
+    const touchAll = () => setTouched({
+        name: true,
+        email: true,
+        phone: true,
+    });
+    const handleSave = () => {
+    // Mark all fields as touched
+    touchAll();
+    // Recalculate errors with current field values
+    const currentErrors = {
+        name: !name || !nameRegex.test(name),
+        email: !email || !emailRegex.test(email),
+        phone: !phone || !phoneRegex.test(phone),
+    };
+
+    if (Object.values(currentErrors).every(v => v === false)) {
+        toast.current.show({
+            severity: 'success',
+            summary: 'Succès',
+            detail: 'les informations sont modifiées avec succès',
+            life: 3000
+        });
+        // Submit logic here
+    } else {
+        toast.current.show({
+            severity: 'error',
+            summary: 'Erreur',
+            detail: 'Veuillez corriger les champs obligatoires.',
+            life: 4000
+        });
+    }
+    };
+     // Helper for field blur
+    const handleBlur = (field) => setTouched(prev => ({ ...prev, [field]: true }));
         return (
             <div className="card">
                 <Toast ref={toast}></Toast>
@@ -112,13 +167,33 @@
                             <div className="p-3 mt-3">
                                 <div className="mb-5">
                                     <FloatLabel>
-                                        <InputText value="Laboratoire QEE" onChange={(e) => setValue(e.target.value)} />
+                                        <InputText
+                                            type="text"
+                                            placeholder="Nom *"
+                                            value={name}
+                                            onChange={e => setName(e.target.value)}
+                                            onBlur={() => handleBlur('name')}
+                                            className={touched.name && errors.name ? 'p-invalid' : ''}
+                                        />
+                                        {touched.name && errors.name && (
+                                            <small className="p-error">Veuillez entrer un nom valide (lettres, espaces, - et . autorisés)</small>
+                                        )}
                                         <label htmlFor="username">Nom</label>
                                     </FloatLabel>
                                 </div>
                                 <div className="mb-5">
                                     <FloatLabel>
-                                        <InputText value="contact@laboqee.ma" onChange={(e) => setValue(e.target.value)} />
+                                        <InputText
+                                            type="email"
+                                            placeholder="Courrier électronique *"
+                                            value={email}
+                                            onChange={e => setEmail(e.target.value)}
+                                            onBlur={() => handleBlur('email')}
+                                            className={touched.email && errors.email ? 'p-invalid' : ''}
+                                        />
+                                        {touched.email && errors.email && (
+                                            <small className="p-error">Veuillez entrer une adresse e-mail valide</small>
+                                        )}
                                         <label htmlFor="email">Email</label>
                                     </FloatLabel>
                                 </div>
@@ -130,13 +205,33 @@
                                 </div>
                                 <div className="mb-5">
                                     <FloatLabel>
-                                        <InputText value="+212(0)535608017" onChange={(e) => setValue(e.target.value)} />
+                                        <InputText
+                                            type="text"
+                                            placeholder="Numéro de téléphone *"
+                                            value={phone}
+                                            onChange={e => setPhone(e.target.value)}
+                                            onBlur={() => handleBlur('phone')}
+                                            className={touched.phone && errors.phone ? 'p-invalid' : ''}
+                                        />
+                                        {touched.phone && errors.phone && (
+                                            <small className="p-error">Veuillez entrer un numéro valide (chiffres et + autorisés)</small>
+                                        )}
                                         <label htmlFor="phone">Numéro de téléphone</label>
                                     </FloatLabel>
                                 </div>
                                 <div className="mb-5">
                                     <FloatLabel>
-                                        <InputText value="+212(0)535608017" onChange={(e) => setValue(e.target.value)} />
+                                        <InputText
+                                            type="text"
+                                            placeholder="Numéro de téléphone *"
+                                            value={phone}
+                                            onChange={e => setPhone(e.target.value)}
+                                            onBlur={() => handleBlur('phone')}
+                                            className={touched.phone && errors.phone ? 'p-invalid' : ''}
+                                        />
+                                        {touched.phone && errors.phone && (
+                                            <small className="p-error">Veuillez entrer un numéro valide (chiffres et + autorisés)</small>
+                                        )}
                                         <label htmlFor="fax">Fax</label>
                                     </FloatLabel>
                                 </div>
@@ -269,7 +364,13 @@
                         {/* Button Section */}
                         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginTop: '50px' }}>
                             <Button className="p-button-danger p-button-outlined p-3" label="Annuler" onClick={() => close()} icon="pi pi-fw pi-times" style={{ maxWidth: '200px' }} />
-                            <Button className="p-button-primary p-3" label="Enregistrer" icon="pi pi-fw pi-save" style={{ maxWidth: '200px' }} />
+                            <Button
+                                className="p-button-primary p-3"
+                                label="Enregistrer"
+                                icon="pi pi-fw pi-save"
+                                style={{ maxWidth: '200px' }}
+                                onClick={handleSave}
+                            />
                         </div>
                     </div>
                 </div>

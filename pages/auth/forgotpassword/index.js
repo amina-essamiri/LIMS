@@ -60,3 +60,4 @@ ForgotPassword.getLayout = function getLayout(page) {
 };
 
 export default ForgotPassword;
+

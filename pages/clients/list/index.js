@@ -42,6 +42,11 @@ function List() {
     const [deleteUserDialog, setDeleteUserDialog] = useState(false);
     const [userToDelete, setUserToDelete] = useState(null);
     const toast = useRef(null);
+    const nameRegex = /^[A-Za-zÀ-ÿ\s\-.]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^\+?\d+$/;
+    const [touched, setTouched] = useState({});
+
     // contact logic overlay Panel
     const dt = useRef(null);
     const [contacts, setContacts] = useState([
@@ -81,6 +86,12 @@ function List() {
         { label: 'Finance', value: 'Finance' },
         { label: 'Marketing', value: 'Marketing' }
     ];
+    const errors = {
+        nom: !formData.nom || !nameRegex.test(formData.nom),
+        email: !formData.email || !emailRegex.test(formData.email),
+        telephone: !formData.telephone || !phoneRegex.test(formData.telephone)
+    };
+
     const handleAddClick = () => {
         setFormData({ ...emptyContact });
         setFormMode('create');
@@ -101,6 +112,9 @@ function List() {
     };
 
     const handleSave = () => {
+    setTouched({ nom: true, email: true, telephone: true });
+
+    if (Object.values(errors).every(e => e === false)) {
         if (formMode === 'create') {
             setContacts((prev) => [...prev, formData]);
         } else if (formMode === 'edit') {
@@ -111,7 +125,23 @@ function List() {
         setShowForm(false);
         setFormData({ ...emptyContact });
         setEditIndex(null);
-    };
+
+        toast.current.show({
+            severity: 'success',
+            summary: 'Succès',
+            detail: 'Contact enregistré avec succès',
+            life: 3000
+        });
+    } else {
+        toast.current.show({
+            severity: 'error',
+            summary: 'Erreur',
+            detail: 'Veuillez corriger les champs obligatoires.',
+            life: 4000
+        });
+    }
+};
+
     // Fonction (dropdown) cell editor
     const actionTemplate = (rowData, options) => {
         const remove = () => {
@@ -167,6 +197,7 @@ function List() {
             global: { value, matchMode: FilterMatchMode.CONTAINS },
         });
     };
+    
 
     const statusBodyTemplate = (rowData) => {
         return (
@@ -303,6 +334,7 @@ function List() {
         };
         reader.readAsArrayBuffer(file);
     };
+    
 
     return (
         <div className="card">
@@ -330,57 +362,87 @@ function List() {
                 <Column field="telephone" header="Téléphone" style={{ width: '15%' }} sortable />
                 <Column field="ville" header="Ville" style={{ width: '15%' }} sortable />
                 <Column field="ice" header="ICE" style={{ width: '10%' }} sortable />
-                <Column field="rc" header="RC" style={{ width: '15%' }}  sortable />
+                <Column field="rc" header="Remise" style={{ width: '15%' , textAlign: 'center'}}  sortable />
                 <Column body={statusBodyTemplate} style={{ width: '10%' }} header="Status" />
                 <Column body={actionBodyTemplate} headerStyle={{ minWidth: '12rem' ,marginLeft: '30px'}} />
             </DataTable>
             {/* My contacts overlay Panel  */}
             <OverlayPanel ref={op} showCloseIcon closeOnEscape dismissable={false} style={{ minWidth: '50rem' }}>
-                <div className="mb-3">
-                    <Button
-                        label="Ajouter Contact"
-                        icon="pi pi-plus"
-                        onClick={handleAddClick}
-                        className="p-button-sm"
+    <Toast ref={toast} />
+    <div className="mb-3">
+        <Button
+            label="Ajouter Contact"
+            icon="pi pi-plus"
+            onClick={handleAddClick}
+            className="p-button-sm"
+        />
+    </div>
+    {showForm && (
+        <div className="p-3 mb-3 surface-border border-round border-1">
+            <div className="grid formgrid p-fluid">
+                <div className="field col">
+                    <label>Nom *</label>
+                    <InputText
+                        value={formData.nom}
+                        onChange={e => setFormData({ ...formData, nom: e.target.value })}
+                        onBlur={() => setTouched(t => ({ ...t, nom: true }))}
+                        placeholder='Nom *'
+                        className={touched.nom && errors.nom ? 'p-invalid' : ''}
+                    />
+                    {touched.nom && errors.nom && (
+                        <small className="p-error">Nom requis (lettres, espaces, - et . autorisés)</small>
+                    )}
+                </div>
+                <div className="field col">
+                    <label>Email *</label>
+                    <InputText
+                        value={formData.email}
+                        onChange={e => setFormData({ ...formData, email: e.target.value })}
+                        onBlur={() => setTouched(t => ({ ...t, email: true }))}
+                        placeholder='Email *'
+                        className={touched.email && errors.email ? 'p-invalid' : ''}
+                    />
+                    {touched.email && errors.email && (
+                        <small className="p-error">Veuillez entrer une adresse e-mail valide</small>
+                    )}
+                </div>
+                <div className="field col">
+                    <label>Téléphone *</label>
+                    <InputText
+                        value={formData.telephone}
+                        onChange={e => setFormData({ ...formData, telephone: e.target.value })}
+                        onBlur={() => setTouched(t => ({ ...t, telephone: true }))}
+                        placeholder='Téléphone *'
+                        className={touched.telephone && errors.telephone ? 'p-invalid' : ''}
+                    />
+                    {touched.telephone && errors.telephone && (
+                        <small className="p-error">Numéro requis (chiffres et + autorisés)</small>
+                    )}
+                </div>
+                <div className="field col">
+                    <label>Fonction</label>
+                    <Dropdown
+                        value={formData.fonction}
+                        options={fonctions}
+                        onChange={e => setFormData({ ...formData, fonction: e.value })}
+                        placeholder="Sélectionner"
                     />
                 </div>
-
-                {showForm && (
-                    <div className="p-3 mb-3 surface-border border-round border-1">
-                        <div className="grid formgrid p-fluid">
-                            <div className="field col">
-                                <label>Nom</label>
-                                <InputText value={formData.nom} onChange={(e) => setFormData({ ...formData, nom: e.target.value })} placeholder='Nom' />
-                            </div>
-                            <div className="field col">
-                                <label>Email</label>
-                                <InputText value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder='Email' />
-                            </div>
-                            <div className="field col">
-                                <label>Téléphone</label>
-                                <InputText value={formData.telephone} onChange={(e) => setFormData({ ...formData, telephone: e.target.value })} placeholder='Téléphone' />
-                            </div>
-                            <div className="field col">
-                                <label>Fonction</label>
-                                <Dropdown
-                                    value={formData.fonction}
-                                    options={fonctions}
-                                    onChange={(e) => setFormData({ ...formData, fonction: e.value })}
-                                    placeholder="Sélectionner"
-                                />
-                            </div>
-                            <div className="field col">
-                                <label>Adresse</label>
-                                <InputText value={formData.adresse} onChange={(e) => setFormData({ ...formData, adresse: e.target.value })} placeholder='Adresse' />
-                            </div>
-                        </div>
-                        <div className="flex gap-2 mt-3">
-                            <Button label="Enregistrer" icon="pi pi-save" outlined onClick={handleSave} />
-                            <Button label="Annuler" icon="pi pi-times" severity="danger" outlined onClick={handleCancel} />
-                        </div>
-                    </div>
-                )}
-
+                <div className="field col">
+                    <label>Adresse</label>
+                    <InputText
+                        value={formData.adresse}
+                        onChange={e => setFormData({ ...formData, adresse: e.target.value })}
+                        placeholder='Adresse'
+                    />
+                </div>
+            </div>
+            <div className="flex gap-2 mt-3">
+                <Button label="Enregistrer" icon="pi pi-save" outlined onClick={handleSave} />
+                <Button label="Annuler" icon="pi pi-times" severity="danger" outlined onClick={handleCancel} />
+            </div>
+        </div>
+    )}
                 <DataTable value={contacts}>
                     <Column field="nom" header="Nom" style={{ minWidth: '12rem' }} />
                     <Column field="email" header="Email" style={{ minWidth: '16rem' }} />
@@ -389,7 +451,7 @@ function List() {
                     <Column field="adresse" header="Adresse" style={{ minWidth: '16rem' }} />
                     <Column header="Actions" body={actionTemplate} style={{ minWidth: '10rem' }} />
                 </DataTable>
-            </OverlayPanel>
+        </OverlayPanel>
 
             {/* Delete Confirmation Dialog */}
             <Dialog visible={deleteUserDialog} style={{ width: '450px' }} header="Confirmer la suppression" modal footer={deleteUserDialogFooter} onHide={() => setDeleteUserDialog(false)}>

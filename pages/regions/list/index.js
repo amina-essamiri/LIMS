@@ -82,16 +82,22 @@ function List() {
         setRegionDialog(false);
     };
 
-    const deleteRegion = () => {
-        setDeleteRegionDialog(false);
-        toast.current.show({ severity: 'success', summary: 'Succès', detail: 'Région supprimée', life: 3000 });
-    };
+const deleteRegion = () => {
+    setRegions(regions.filter(r => r.id !== region.id));
+    setDeleteRegionDialog(false);
+    toast.current.show({ 
+        severity: 'success', 
+        summary: 'Succès', 
+        detail: 'Région supprimée', 
+        life: 3000 
+    });
+};
 
-    const confirmDeleteRegion = (region) => {
-        setRegion(region);
-        setDeleteRegionDialog(true);
-    };
 
+const confirmDeleteRegion = (region) => {
+    setRegion(region);
+    setDeleteRegionDialog(true);
+};
     const actionBodyTemplate = (rowData) => (
         <>
             <Button icon="pi pi-pencil" rounded text severity="success" className="mr-2" onClick={() => openEditRegionDialog(rowData)}  />
@@ -110,13 +116,52 @@ function List() {
             </div>
         );
     };
+    const saveRegion = () => {
+    if (!region.name.trim()) {
+        toast.current.show({ 
+            severity: 'warn', 
+            summary: 'Attention', 
+            detail: 'Le nom de la région est requis', 
+            life: 3000 
+        });
+        return;
+    }
+
+    if (region.id) {
+        // Modification
+        setRegions(regions.map(r => 
+            r.id === region.id ? { ...r, name: region.name } : r
+        ));
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Région modifiée', 
+            life: 3000 
+        });
+    } else {
+        // Création
+        const maxId = regions.length > 0 ? Math.max(...regions.map(r => r.id)) : 0;
+        const newRegion = { id: maxId + 1, name: region.name };
+        setRegions([...regions, newRegion]);
+        toast.current.show({ 
+            severity: 'success', 
+            summary: 'Succès', 
+            detail: 'Région ajoutée', 
+            life: 3000 
+        });
+    }
+    setRegionDialog(false);
+    setRegion({ id: null, name: '' });
+};
+
 
     const regionDialogFooter = (
-        <>
-            <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-            <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" />
-        </>
-    );
+    <>
+        <Button label="Annuler" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+        <Button label="Sauvegarder" icon="pi pi-check" className="p-button-text" onClick={saveRegion} />
+    </>
+);
+
 
     const deleteRegionDialogFooter = (
         <>
